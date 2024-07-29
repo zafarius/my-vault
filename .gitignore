@@ -30,4 +30,4 @@ replay_pid*
 build
 
 # IDE
-.idea
+/.idea/
