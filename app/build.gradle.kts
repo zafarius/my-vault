@@ -4,11 +4,13 @@
 
 plugins {
     id("buildlogic.java-application-conventions")
+    alias(libs.plugins.spring.boot)
 }
 
 dependencies {
-    implementation("org.apache.commons:commons-text")
-    implementation(project(":utilities"))
+    implementation(libs.spring.boot.starter)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.junit.jupiter)
 }
 
 application {
