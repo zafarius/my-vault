@@ -8,12 +8,19 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.spring.boot.starter)
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.h2.database)
+    implementation(libs.flyway.core)
+    implementation(libs.atomikos)
+    implementation(project(":account:repository"))
+    implementation(project(":security"))
+
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.junit.jupiter)
+
 }
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.app.App"
+    mainClass = "vault.VaultApplication"
 }

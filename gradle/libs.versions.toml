@@ -1,11 +1,25 @@
 [versions]
 spring-boot = "3.2.2"
 junit-jupiter = "5.10.3"
+h2database= "2.3.230"
+flyway-core = "10.17.0"
+lombok = "1.18.34"
+lombok-plugin = "8.7.1"
+atomikos = "6.0.0"
+
 
 [libraries]
-spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+h2-database = { module = "com.h2database:h2", version.ref = "h2database" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+atomikos = { module = "com.atomikos:transactions-spring-boot3-starter", version.ref = "atomikos"}
+
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-test", version.ref = "spring-boot" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+lombok = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }
