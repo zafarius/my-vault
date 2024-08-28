@@ -17,5 +17,5 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.junit.jupiter.mockito)
-    testImplementation("org.assertj:assertj-core:3.26.3")
+    testImplementation(libs.org.assertj.core)
 }
