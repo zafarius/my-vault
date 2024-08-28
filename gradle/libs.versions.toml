@@ -1,5 +1,5 @@
 [versions]
-spring-boot = "3.2.2"
+spring-boot = "3.3.3"
 junit-jupiter = "5.11.0"
 h2database= "2.3.230"
 flyway-core = "10.17.0"

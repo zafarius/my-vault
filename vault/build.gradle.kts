@@ -15,8 +15,10 @@ dependencies {
     implementation(project(":account:repository"))
     implementation(project(":security"))
 
-    testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.junit.jupiter.mockito)
+    testImplementation(libs.org.assertj.core)
 }
 
 application {
