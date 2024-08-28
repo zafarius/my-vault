@@ -1,6 +1,9 @@
 package vault.repositroy.account;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,22 +18,24 @@ import java.util.Set;
         schema = "vault",
         name = "account")
 public class AccountEntity {
-    //@NotNull
+    @NotNull
     @Id
     @Column(nullable = false, updatable = false)
     @ToString.Include
     private String username;
 
-  //  @Min(0)
-    //@Max(Long.MAX_VALUE)
+    @Min(0)
+    @Max(Long.MAX_VALUE)
     @Version
     @Column(nullable = false)
-   // @ToString.Include
+    @ToString.Include
     private long version;
 
+    @NotNull
     @Column(nullable = false)
     private String password;
 
+    @NotNull
     @ManyToMany
     @JoinTable(
             schema = "vault",

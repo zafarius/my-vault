@@ -1,6 +1,7 @@
 package vault.repositroy.roles;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,6 +18,7 @@ import java.util.Set;
         name = "roles")
 public class RolesEntity {
     @Id
+    @NotNull
     @Column(name = "role_name", nullable = false, updatable = false)
     @ToString.Include
     private String roleName;

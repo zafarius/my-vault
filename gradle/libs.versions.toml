@@ -1,24 +1,32 @@
 [versions]
 spring-boot = "3.2.2"
-junit-jupiter = "5.10.3"
+junit-jupiter = "5.11.0"
 h2database= "2.3.230"
 flyway-core = "10.17.0"
 lombok = "1.18.34"
 lombok-plugin = "8.7.1"
 atomikos = "6.0.0"
+spring-session-jdbc = "3.3.2"
+jakarta-validation = "3.1.0"
+junit-jupiter-mockito = "5.12.0"
 
 
 [libraries]
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+
 h2-database = { module = "com.h2database:h2", version.ref = "h2database" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 atomikos = { module = "com.atomikos:transactions-spring-boot3-starter", version.ref = "atomikos"}
+spring-session-jdbc = { module = "org.springframework.session:spring-session-jdbc", version.ref = "spring-session-jdbc"}
+jakarta-validation = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakarta-validation"}
 
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-test", version.ref = "spring-boot" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+junit-jupiter-mockito = { module = "org.mockito:mockito-junit-jupiter", version.ref = "junit-jupiter-mockito" }
+
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

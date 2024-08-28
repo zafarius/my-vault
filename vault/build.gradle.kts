@@ -17,7 +17,6 @@ dependencies {
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.junit.jupiter)
-
 }
 
 application {

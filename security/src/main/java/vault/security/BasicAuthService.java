@@ -10,9 +10,7 @@ import vault.repositroy.account.AccountEntity;
 import vault.repositroy.account.AccountRepository;
 import vault.repositroy.roles.RolesEntity;
 
-import java.util.Arrays;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class BasicAuthService implements UserDetailsService {

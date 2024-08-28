@@ -4,6 +4,8 @@ server:
 spring:
   profiles:
     default: local
+  session:
+    timeout: 10m
   h2:
     console:
       enabled: true
