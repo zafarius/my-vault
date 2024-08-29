@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends CrudRepository<AccountEntity, String> {
     /**
-     * Search account table by specific userername.
+     * Search account table by specific username.
      *
      * @param username
      * @return @{@link AccountEntity}
