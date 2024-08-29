@@ -23,6 +23,9 @@ public class BasicAuthServiceTest {
     @InjectMocks
     private BasicAuthService basicAuthService;
 
+    /**
+     * Test loading account by username.
+     */
     @Test
     void testLoadUserByUsername() {
         // setup
@@ -47,6 +50,9 @@ public class BasicAuthServiceTest {
         assertThat(result.getAuthorities().toString()).contains(roles.getRoleName());
     }
 
+    /**
+     * Negative test loading account by username.
+     */
     @Test
     void testLoadUserByUsernameNotExists() {
         // setup

@@ -1,13 +1,19 @@
+/**
+ * Entity class that represents roles table
+ */
 package vault.repositroy.roles;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import vault.repositroy.account.AccountEntity;
 
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,7 +22,8 @@ import java.util.Set;
 @Table(
         schema = "vault",
         name = "roles")
-public class RolesEntity {
+public final class RolesEntity {
+
     @Id
     @NotNull
     @Column(name = "role_name", nullable = false, updatable = false)

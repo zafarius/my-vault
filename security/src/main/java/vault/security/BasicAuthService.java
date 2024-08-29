@@ -16,9 +16,16 @@ import java.util.Optional;
 public class BasicAuthService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
+    /**
+     * Build {@link UserDetails} by finding user with {@link AccountRepository}.
+     *
+     * @param username
+     * @return {@link UserDetails}
+     * @throws UsernameNotFoundException
+     */
     @Transactional(readOnly = true)
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         Optional<AccountEntity> account = accountRepository.findByUsername(username);
         return account.map(accountEntity ->
                 User

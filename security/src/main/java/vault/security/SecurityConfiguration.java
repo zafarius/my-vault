@@ -2,22 +2,13 @@ package vault.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
-import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.context.*;
-import org.springframework.security.web.session.SessionManagementFilter;
 import vault.repositroy.account.AccountRepository;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -29,8 +20,15 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfiguration {
 
+    /**
+     * Configuration of request handling.
+     *
+     * @param http
+     * @return @{@link SecurityFilterChain}
+     * @throws Exception
+     */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         http
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .csrf(CsrfConfigurer::disable)
@@ -41,12 +39,23 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    /**
+     * Basic authentication bean with jdbc.
+     *
+     * @param accountRepository
+     * @return @{@link UserDetailsService}
+     */
     @Bean
-    public UserDetailsService userDetailsService(AccountRepository accountRepository) {
+    public UserDetailsService userDetailsService(final AccountRepository accountRepository) {
         return new BasicAuthService(accountRepository);
     }
 
 
+    /**
+     * Password Encoder user by authentication flow.
+     *
+     * @return @{@link BCryptPasswordEncoder}
+     */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

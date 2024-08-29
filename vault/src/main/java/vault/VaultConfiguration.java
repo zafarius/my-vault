@@ -8,5 +8,4 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan
 public class VaultConfiguration {
-
 }

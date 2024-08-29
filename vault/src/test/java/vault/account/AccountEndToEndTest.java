@@ -7,6 +7,9 @@ import vault.VaultApplication;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = VaultApplication.class)
 public class AccountEndToEndTest {
 
+    /**
+     * Sample.
+     */
     @Test
     public void testt() {
 

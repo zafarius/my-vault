@@ -4,6 +4,7 @@
 
 plugins {
     id("buildlogic.java-application-conventions")
+    alias(libs.plugins.lombok)
     alias(libs.plugins.spring.boot)
 }
 
