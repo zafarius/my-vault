@@ -47,10 +47,9 @@ jobs:
         uses: docker/build-push-action@v6
         env:
           version: $(ls vault-* | awk -F .jar '{ print $1 }')
-        run: echo $version
         with:
           build-args: | 
             BUILD_VERSION=${version}
           file: docker/Dockerfile
           push: false
-          tags: user/app:latest
+          tags: vault:${version}
