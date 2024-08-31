@@ -12,7 +12,7 @@ RUN export HTTP_PROXY=${PROXY_URL} \
 
 WORKDIR application
 ARG BUILD_VERSION
-COPY vault-${BUILD_VERSION}.jar vault.jar
+COPY ./vault-${BUILD_VERSION}.jar vault.jar
 
 USER appuser
 
