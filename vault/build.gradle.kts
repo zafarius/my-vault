@@ -27,3 +27,8 @@ application {
     // Define the main class for the application.
     mainClass = "vault.VaultApplication"
 }
+
+//disable plain jar
+tasks.getByName<Jar>("jar") {
+    enabled = false
+}
