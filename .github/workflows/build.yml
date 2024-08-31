@@ -49,7 +49,7 @@ jobs:
           version: $(ls vault-* | awk -F .jar '{ print $1 }')
         with:
           build-args: | 
-            BUILD_VERSION=${version}
+            BUILD_VERSION=env.version
           file: docker/Dockerfile
           push: false
-          tags: vault:${version}
+          tags: vault:env.version
