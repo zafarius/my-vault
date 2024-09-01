@@ -12,6 +12,7 @@ RUN export HTTP_PROXY=${PROXY_URL} \
 
 WORKDIR application
 ARG BUILD_VERSION
+COPY docker/Dockerfile Dockerfile
 COPY /vault/vault-${BUILD_VERSION}.jar vault.jar
 
 USER appuser
