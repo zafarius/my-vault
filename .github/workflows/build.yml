@@ -50,7 +50,7 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v6
         with:
-          context: "."
+          context: "{{defaultContext}}"
           build-args: | 
             BUILD_VERSION=${{ env.version }}
           file: docker/Dockerfile
