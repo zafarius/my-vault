@@ -15,8 +15,8 @@ ARG BUILD_VERSION
 
 COPY gradlew.bat gradlee
 COPY docker/Dockerfile Dockerfile
-COPY vault-0.1.0-SNAPSHOT.jar vault.jar
-COPY "vault-${BUILD_VERSION}.jar" vault.jar
+#COPY vault-0.1.0-SNAPSHOT.jar vault.jar
+#COPY "vault-${BUILD_VERSION}.jar" vault.jar
 
 USER appuser
 
