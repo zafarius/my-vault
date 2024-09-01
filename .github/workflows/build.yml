@@ -46,7 +46,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Extract version of jar file
-        run: echo version=$(ls vault-* | awk -F .jar '{ print $1 }') >> $GITHUB_ENV
+        run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_ENV
       - name: Build
         uses: docker/build-push-action@v6
         with:
