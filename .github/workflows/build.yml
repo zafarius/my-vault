@@ -42,7 +42,7 @@ jobs:
           name: vault-jar
       - name: Extract version of jar file
         run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_ENV
-        
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
