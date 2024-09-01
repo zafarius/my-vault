@@ -53,6 +53,6 @@ jobs:
           context: "{{defaultContext}}:docker"
           build-args: | 
             BUILD_VERSION=${{ env.version }}
-          file: docker/Dockerfile
+          file: ../docker/Dockerfile
           push: false
           tags: vault:${{ env.version }}
