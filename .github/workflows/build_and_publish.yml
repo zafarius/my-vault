@@ -83,10 +83,11 @@ jobs:
       - name: Extract version of docker file
         run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.tar]") >> $GITHUB_ENV
 
-      - name: Docker login into ghcr.io
-        run: docker login ghcr.io --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
+      - name: Docker login into ${{ env.registry }}
+        run: docker login ${{ env.registry }} --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
 
-      - name: Load image and push
-        run: |
-          docker load --input vault-${{ env.version }}.tar
-          docker push ghcr.io/${{ github.repository_owner }}/vault:${{ env.version }}
+      - name: Load image
+        run: docker load --input vault-${{ env.version }}.tar
+
+      - name: Push image
+        run: docker push ${{ env.registry }}/${{ github.repository_owner }}/vault:${{ env.version }}
