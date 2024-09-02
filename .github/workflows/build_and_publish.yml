@@ -75,16 +75,13 @@ jobs:
         with:
           name: vault-docker
 
-     # - name: Login to GitHub Container Registry
-     #   uses: docker/login-action@v3
-     #   with:
-     #     registry: ghcr.io
-     #     username: ${{ github.repository_owner }}
-     #     password: ${{ secrets.PACKAGES_TOKEN }}
+      - name: Extract version of docker file
+        run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.tar]") >> $GITHUB_ENV
 
-      - name: Load image
+      - name: Docker login into ghcr.io
+        run: docker login --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }} ghcr.io
+
+      - name: Load image and push
         run: |
-          docker load --input vault*.tar
-          docker image ls -a
-          docker login --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }} ghcr.io
-          docker push vault
+          docker load --input vault-${{ env.version }}.tar
+          docker push vault:${{ env.version }}
