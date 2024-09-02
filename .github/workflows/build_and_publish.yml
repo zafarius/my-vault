@@ -80,7 +80,11 @@ jobs:
           name: vault-docker
 
       - name: test
-        run: echo {{ env.version }}
+        run: echo "$version"
+
+      - name: test2
+        run: echo ${{ env.version }}
+
       - name: Extract version of docker file
         run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.tar]") >> $GITHUB_ENV
 
