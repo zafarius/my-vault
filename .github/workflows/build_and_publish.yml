@@ -60,7 +60,7 @@ jobs:
             BUILD_VERSION=${{ env.version }}
           file: ./docker/Dockerfile
           push: false
-          tags: vault:${{ env.version }}
+          tags: ghcr.io/vault:${{ env.version }}
           outputs: type=docker,dest=/tmp/vault-${{ env.version }}.tar
 
       - uses: actions/upload-artifact@v4
@@ -76,10 +76,6 @@ jobs:
       - docker_build
     runs-on: ubuntu-latest
     steps:
-      - name: test1
-        run: echo ${{ env.version_artifact }}
-      - name: test2
-        run: echo $version_artifact
       - uses: actions/download-artifact@v4
         with:
           name: vault-docker
@@ -93,4 +89,4 @@ jobs:
       - name: Load image and push
         run: |
           docker load --input vault-${{ env.version }}.tar
-          docker push ghcr.io/${{ github.repository_owner }}/vault:${{ env.version }}
+          docker push ghcr.io/vault:${{ env.version }}
