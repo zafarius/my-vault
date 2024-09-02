@@ -1,4 +1,4 @@
-FROM alpine:latest as builder
+FROM alpine:latest
 
 # Install JRE, Update OS and add non-provileged user
 RUN export HTTP_PROXY=${PROXY_URL} \
