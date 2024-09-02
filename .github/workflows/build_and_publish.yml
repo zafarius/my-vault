@@ -84,5 +84,5 @@ jobs:
 
       - name: Load image
         run: |
-          docker load --input /tmp/vault*.tar
+          docker load --input vault*.tar
           docker image ls -a
