@@ -75,14 +75,16 @@ jobs:
         with:
           name: vault-docker
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.PACKAGES_TOKEN }}
+     # - name: Login to GitHub Container Registry
+     #   uses: docker/login-action@v3
+     #   with:
+     #     registry: ghcr.io
+     #     username: ${{ github.repository_owner }}
+     #     password: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Load image
         run: |
           docker load --input vault*.tar
           docker image ls -a
+          docker login --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }} ghcr.io
+          docker push vault
