@@ -60,7 +60,7 @@ jobs:
             BUILD_VERSION=${{ env.version }}
           file: ./docker/Dockerfile
           push: false
-          tags: ghcr.io/${{ github.repository_owner }}/vault:${{ env.version }}
+          tags: ${{ env.registry }}/${{ github.repository_owner }}/vault:${{ env.version }}
           outputs: type=docker,dest=/tmp/vault-${{ env.version }}.tar
 
       - uses: actions/upload-artifact@v4
