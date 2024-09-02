@@ -3,9 +3,6 @@ name: Build and Publish
 on:
   push:
 
-env:
-  version_artifact: ""
-
 jobs:
   gradle_build:
     runs-on: ubuntu-latest
@@ -73,6 +70,8 @@ jobs:
 
 
   docker_publish:
+    env:
+      version: ""
     needs:
       - docker_build
     runs-on: ubuntu-latest
@@ -89,9 +88,9 @@ jobs:
         run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.tar]") >> $GITHUB_ENV
 
       - name: Docker login into ghcr.io
-        run: docker login --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }} ghcr.io
+        run: docker login ghcr.io --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Load image and push
         run: |
           docker load --input vault-${{ env.version }}.tar
-          docker push vault:${{ env.version }}
+          docker push ghcr.io/${{ github.repository_owner }}/vault:${{ env.version }}
