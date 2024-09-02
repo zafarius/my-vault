@@ -70,8 +70,6 @@ jobs:
 
 
   docker_publish:
-    env:
-      version: ""
     needs:
       - docker_build
     #if: github.ref == 'refs/heads/main'
