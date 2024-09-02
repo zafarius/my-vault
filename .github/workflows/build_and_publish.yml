@@ -70,20 +70,16 @@ jobs:
 
 
   docker_publish:
+    env:
+      version: ""
     needs:
       - docker_build
-    #if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: vault-docker
-
-      - name: test
-        run: echo "$version"
-
-      - name: test2
-        run: echo ${{ env.version }}
 
       - name: Extract version of docker file
         run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.tar]") >> $GITHUB_ENV
