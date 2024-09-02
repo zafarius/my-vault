@@ -1,4 +1,4 @@
-name: Build
+name: Build and Publish
 
 on:
   push:
@@ -58,3 +58,9 @@ jobs:
           file: ./docker/Dockerfile
           push: false
           tags: vault:${{ env.version }}
+          outputs: type=docker,dest=/tmp/vault-${{ env.version }}.tar
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vault-docker
+          path: tmp/vault-${{ env.version }}.tar
