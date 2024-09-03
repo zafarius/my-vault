@@ -31,6 +31,9 @@ jobs:
         id: vault-version
         run: echo VAULT_VERSION=$(ls vault/build/libs/vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_OUTPUT
 
+      - name: debug
+        run: echo ${{ steps.vault-version.outputs.VAULT_VERSION }}
+
   docker_build:
     needs:
       - gradle_build
