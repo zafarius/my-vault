@@ -18,7 +18,10 @@ spring:
         min-pool-size: 5
         max-pool-size: 20
       properties:
-        enable-logging: true
+        enable-logging: false
+        log-base-name: VAULT_XA
+        log-base-dir: /application/data/jta
+
     enabled: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
