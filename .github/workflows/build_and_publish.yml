@@ -28,7 +28,8 @@ jobs:
           path: vault/build/libs/
 
       - name: Extract version of jar file
-        run: echo vault_version=$(ls vault/build/libs/vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_OUTPUT
+        id: vault-version
+        run: echo VAULT_VERSION=$(ls vault/build/libs/vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_OUTPUT
 
   docker_build:
     needs:
@@ -53,16 +54,16 @@ jobs:
         with:
           context: .
           build-args: | 
-            BUILD_VERSION=${{ steps.gradle_build.outputs.vault_version }}
+            BUILD_VERSION=${{ steps.vault-version.outputs.VAULT_VERSION }}
           file: ./docker/Dockerfile
           push: false
-          tags: ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ steps.gradle_build.outputs.vault_version }}
-          outputs: type=docker,dest=/tmp/vault-${{ steps.gradle_build.outputs.vault_version }}.tar
+          tags: ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ steps.vault-version.outputs.VAULT_VERSION }}
+          outputs: type=docker,dest=/tmp/vault-${{ steps.vault-version.outputs.VAULT_VERSION }}.tar
 
       - uses: actions/upload-artifact@v4
         with:
           name: vault-docker
-          path: /tmp/vault-${{ steps.gradle_build.outputs.vault_version }}.tar
+          path: /tmp/vault-${{ steps.vault-version.outputs.VAULT_VERSION }}.tar
 
   docker_publish:
     env:
@@ -83,7 +84,7 @@ jobs:
         run: docker login ${{ vars.registry }} --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Load image
-        run: docker load --input vault-${{ steps.gradle_build.outputs.vault_version }}.tar
+        run: docker load --input vault-${{ steps.vault-version.outputs.VAULT_VERSION }}.tar
 
       - name: Push image
-        run: docker push ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ steps.gradle_build.outputs.vault_version }}
+        run: docker push ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ steps.vault-version.outputs.VAULT_VERSION }}
