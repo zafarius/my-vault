@@ -10,6 +10,8 @@ jobs:
   gradle_build:
     runs-on: ubuntu-latest
     steps:
+      - name: debug
+        run: echo "${{ env.pattern_vault_version }}"
       - name: Checkout sources
         uses: actions/checkout@v4
 
