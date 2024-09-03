@@ -29,7 +29,7 @@ jobs:
 
       - name: Extract version of jar file
         id: vault-version
-        run: echo VAULT_VERSION=$(ls vault/build/libs/vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_OUTPUT
+        run: echo "VAULT_VERSION=$(ls vault/build/libs/vault-* | grep -oE "[0-9](.*)[^.jar]")" >> "$GITHUB_OUTPUT"
 
       - name: debug
         run: echo ${{ steps.vault-version.outputs.VAULT_VERSION }}
