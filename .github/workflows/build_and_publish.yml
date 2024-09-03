@@ -3,6 +3,9 @@ name: Build and Publish
 on:
   push:
 
+env:
+  pattern_vault_version: "[0-9](.*)[^.jartar]"
+
 jobs:
   gradle_build:
     runs-on: ubuntu-latest
@@ -27,14 +30,9 @@ jobs:
           name: vault-jar
           path: vault/build/libs/
 
-      - name: Extract version of jar file
-        id: vault-version
-        run: echo "VAULT_VERSION=$(ls vault/build/libs/vault-* | grep -oE "[0-9](.*)[^.jar]")" >> "$GITHUB_OUTPUT"
-
-      - name: debug
-        run: echo ${{ steps.vault-version.outputs.VAULT_VERSION }}
-
   docker_build:
+    env:
+      version: ""
     needs:
       - gradle_build
     runs-on: ubuntu-latest
@@ -45,6 +43,14 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: vault-jar
+      - name: Extract version of jar file
+        run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_ENV
+
+      - name: Extract version of jar file
+        run: echo version_artifact=$(ls vault-* | grep -oE "[0-9](.*)[^.jartar]") >> $GITHUB_ENV
+
+      - name: debug
+        run: echo {{ env.pattern_vault_version }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -56,17 +62,18 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          build-args: | 
-            BUILD_VERSION=${{ steps.vault-version.outputs.VAULT_VERSION }}
+          build-args: |
+            BUILD_VERSION=${{ env.version }}
           file: ./docker/Dockerfile
           push: false
-          tags: ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ steps.vault-version.outputs.VAULT_VERSION }}
-          outputs: type=docker,dest=/tmp/vault-${{ steps.vault-version.outputs.VAULT_VERSION }}.tar
+          tags: ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ env.version }}
+          outputs: type=docker,dest=/tmp/vault-${{ env.version }}.tar
 
       - uses: actions/upload-artifact@v4
         with:
           name: vault-docker
-          path: /tmp/vault-${{ steps.vault-version.outputs.VAULT_VERSION }}.tar
+          path: /tmp/vault-${{ env.version }}.tar
+
 
   docker_publish:
     env:
@@ -87,7 +94,7 @@ jobs:
         run: docker login ${{ vars.registry }} --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Load image
-        run: docker load --input vault-${{ steps.vault-version.outputs.VAULT_VERSION }}.tar
+        run: docker load --input vault-${{ env.version }}.tar
 
       - name: Push image
-        run: docker push ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ steps.vault-version.outputs.VAULT_VERSION }}
+        run: docker push ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ env.version }}
