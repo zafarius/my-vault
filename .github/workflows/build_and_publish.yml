@@ -43,14 +43,9 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: vault-jar
-      - name: Extract version of jar file
-        run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_ENV
 
       - name: Extract version of jar file
-        run: echo version_artifact=$(ls vault-* | grep -oE "[0-9](.*)[^.jartar]") >> $GITHUB_ENV
-
-      - name: debug
-        run: echo {{ env.pattern_vault_version }}
+        run: echo version_artifact=$(ls vault-* | grep -oE "${{ env.pattern_vault_version }}") >> $GITHUB_ENV
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -80,7 +75,7 @@ jobs:
       version: ""
     needs:
       - docker_build
-    if: github.ref == 'refs/heads/main'
+   # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
@@ -88,7 +83,7 @@ jobs:
           name: vault-docker
 
       - name: Extract version of docker file
-        run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.tar]") >> $GITHUB_ENV
+        run: echo version=$(ls vault-* |  grep -oE "${{ env.pattern_vault_version }}") >> $GITHUB_ENV
 
       - name: Docker login into ${{ vars.registry }}
         run: docker login ${{ vars.registry }} --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
