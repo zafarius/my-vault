@@ -1,5 +1,8 @@
 FROM alpine:latest
 
+# Link published image to repo
+LABEL org.opencontainers.image.source="https://github.com/zafarius/my-vault"
+
 # Install JRE, Update OS and add non-provileged user
 RUN export HTTP_PROXY=${PROXY_URL} \
   && export HTTPS_PROXY=${PROXY_URL} \
