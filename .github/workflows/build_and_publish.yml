@@ -27,9 +27,10 @@ jobs:
           name: vault-jar
           path: vault/build/libs/
 
+      - name: Extract version of jar file
+        run: echo vault_version=$(ls vault/build/libs/vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_OUTPUT
+
   docker_build:
-    env:
-      version: ""
     needs:
       - gradle_build
     runs-on: ubuntu-latest
@@ -40,11 +41,6 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: vault-jar
-      - name: Extract version of jar file
-        run: echo version=$(ls vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_ENV
-
-      - name: Extract version of jar file
-        run: echo version_artifact=$(ls vault-* | grep -oE "[0-9](.*)[^.jar]") >> $GITHUB_ENV
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -57,17 +53,16 @@ jobs:
         with:
           context: .
           build-args: | 
-            BUILD_VERSION=${{ env.version }}
+            BUILD_VERSION=${{ steps.gradle_build.outputs.vault_version }}
           file: ./docker/Dockerfile
           push: false
-          tags: ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ env.version }}
-          outputs: type=docker,dest=/tmp/vault-${{ env.version }}.tar
+          tags: ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ steps.gradle_build.outputs.vault_version }}
+          outputs: type=docker,dest=/tmp/vault-${{ steps.gradle_build.outputs.vault_version }}.tar
 
       - uses: actions/upload-artifact@v4
         with:
           name: vault-docker
-          path: /tmp/vault-${{ env.version }}.tar
-
+          path: /tmp/vault-${{ steps.gradle_build.outputs.vault_version }}.tar
 
   docker_publish:
     env:
@@ -88,7 +83,7 @@ jobs:
         run: docker login ${{ vars.registry }} --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Load image
-        run: docker load --input vault-${{ env.version }}.tar
+        run: docker load --input vault-${{ steps.gradle_build.outputs.vault_version }}.tar
 
       - name: Push image
-        run: docker push ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ env.version }}
+        run: docker push ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ steps.gradle_build.outputs.vault_version }}
