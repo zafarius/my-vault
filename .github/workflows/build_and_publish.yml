@@ -86,7 +86,7 @@ jobs:
         run: echo version_vault=$(ls vault-* |  grep -oE "${{ env.pattern_vault_version }}") >> $GITHUB_ENV
 
       - name: Docker login into ${{ vars.registry }}
-        run: docker login ${{ vars.registry }} --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
+        run: echo ${{ secrets.PACKAGES_TOKEN }} | docker login ${{ vars.registry }} --username ${{ github.repository_owner }} --password-stdin
 
       - name: Load image
         run: docker load --input vault-${{ env.version_vault }}.tar
