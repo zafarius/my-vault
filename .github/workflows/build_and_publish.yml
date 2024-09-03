@@ -67,7 +67,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: vault-docker
-          path: /tmp/vault-${{ env.version }}.tar
+          path: /tmp/vault-${{ env.version_vault }}.tar
 
 
   docker_publish:
@@ -89,7 +89,7 @@ jobs:
         run: docker login ${{ vars.registry }} --username ${{ github.repository_owner }} --password ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Load image
-        run: docker load --input vault-${{ env.version }}.tar
+        run: docker load --input vault-${{ env.version_vault }}.tar
 
       - name: Push image
         run: docker push ${{ vars.registry }}/${{ github.repository_owner }}/vault:${{ env.version_vault }}
