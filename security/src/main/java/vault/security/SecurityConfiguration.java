@@ -52,7 +52,7 @@ public class SecurityConfiguration {
 
 
     /**
-     * Password Encoder user by authentication flow.
+     * Password Encoder used by authentication flow.
      *
      * @return @{@link BCryptPasswordEncoder}
      */
