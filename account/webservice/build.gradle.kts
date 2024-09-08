@@ -14,10 +14,9 @@ dependencies {
     implementation(libs.jakarta.validation)
     implementation(libs.springdoc.openapi)
     implementation(libs.openapitools.jackson)
-    implementation(libs.javax.annotation)
-    implementation(libs.javax.validation)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
+    compileOnly(libs.jakarta.servlet.api)
 }
 
 openApiMeta {
@@ -32,7 +31,9 @@ openApiValidate {
 }
 
 openApiGenerate {
+
     generatorName = "spring"
+    library = "spring-boot"
     inputSpec = "${layout.projectDirectory}/src/main/resources/contracts/account-v1.0.yaml"
     outputDir = "${layout.buildDirectory.get()}/generate-resources/openapi"
 
@@ -43,7 +44,11 @@ openApiGenerate {
     configOptions.put("interfaceOnly", "true")
     configOptions.put("useTags", "true")
     configOptions.put("skipDefaultInterface", "true")
+    configOptions.put("useJakartaEe", "true")
+    configOptions.put("useSpringBoot3", "true")
+
 }
+
 // Specify path to generated sources
 sourceSets {
     main {
