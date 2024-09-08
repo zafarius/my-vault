@@ -15,5 +15,6 @@ include(
     "vault",
     "security",
     "account:repository",
-    "account:webservice"
+    "account:webservice",
+    "account:webservice-contracts"
 )

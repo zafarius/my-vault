@@ -15,6 +15,7 @@ dependencies {
     implementation(libs.flyway.core)
     implementation(libs.atomikos)
     implementation(project(":account:repository"))
+    implementation(project(":account:webservice-contracts"))
     implementation(project(":security"))
 
     testImplementation(libs.junit.jupiter)
