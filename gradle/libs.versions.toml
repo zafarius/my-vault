@@ -10,11 +10,18 @@ spring-session-jdbc = "3.3.2"
 jakarta-validation = "3.1.0"
 junit-jupiter-mockito = "5.12.0"
 org-assertj-core = "3.26.3"
+openapi-generator = "7.8.0"
+springdoc-openapi = "1.8.0"
+openapitools-jackson-databind-nullable = "0.2.6"
+javax-validation = "2.0.1.Final"
+javax-annotation = "1.3.2"
 
 [libraries]
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+springdoc-openapi = { module = "org.springdoc:springdoc-openapi-ui", version.ref = "springdoc-openapi" }
+openapitools-jackson = { module = "org.openapitools:jackson-databind-nullable", version.ref = "openapitools-jackson-databind-nullable" }
 
 h2-database = { module = "com.h2database:h2", version.ref = "h2database" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core" }
@@ -22,6 +29,8 @@ lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 atomikos = { module = "com.atomikos:transactions-spring-boot3-starter", version.ref = "atomikos"}
 spring-session-jdbc = { module = "org.springframework.session:spring-session-jdbc", version.ref = "spring-session-jdbc"}
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakarta-validation"}
+javax-annotation = { module = "javax.annotation:javax.annotation-api", version.ref = "javax-annotation"}
+javax-validation = { module = "javax.validation:validation-api", version.ref = "javax-validation" }
 
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-test", version.ref = "spring-boot" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
@@ -32,3 +41,4 @@ org-assertj-core = { module = "org.assertj:assertj-core", version.ref = "org-ass
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombok-plugin" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
