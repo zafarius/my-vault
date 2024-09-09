@@ -9,7 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import vault.repositroy.account.AccountRepository;
+import vault.repositroy.account.AccountRepositoryJpa;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -42,12 +42,12 @@ public class SecurityConfiguration {
     /**
      * Basic authentication bean with jdbc.
      *
-     * @param accountRepository
+     * @param accountRepositoryJpa
      * @return @{@link UserDetailsService}
      */
     @Bean
-    public UserDetailsService userDetailsService(final AccountRepository accountRepository) {
-        return new BasicAuthService(accountRepository);
+    public UserDetailsService userDetailsService(final AccountRepositoryJpa accountRepositoryJpa) {
+        return new BasicAuthService(accountRepositoryJpa);
     }
 
 

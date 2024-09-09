@@ -7,17 +7,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import vault.repositroy.account.AccountEntity;
-import vault.repositroy.account.AccountRepository;
+import vault.repositroy.account.AccountRepositoryJpa;
 import vault.repositroy.roles.RolesEntity;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public class BasicAuthService implements UserDetailsService {
-    private final AccountRepository accountRepository;
+    private final AccountRepositoryJpa accountRepositoryJpa;
 
     /**
-     * Build {@link UserDetails} by finding user with {@link AccountRepository}.
+     * Build {@link UserDetails} by finding user with {@link AccountRepositoryJpa}.
      *
      * @param username
      * @return {@link UserDetails}
@@ -26,7 +26,7 @@ public class BasicAuthService implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        Optional<AccountEntity> account = accountRepository.findByUsername(username);
+        Optional<AccountEntity> account = accountRepositoryJpa.findByUsername(username);
         return account.map(accountEntity ->
                 User
                         .builder()

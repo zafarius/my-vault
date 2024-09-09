@@ -7,7 +7,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface AccountRepository extends CrudRepository<AccountEntity, String> {
+public interface AccountRepositoryJpa extends CrudRepository<AccountEntity, String> {
     /**
      * Search account table by specific username.
      *
