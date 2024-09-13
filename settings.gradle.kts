@@ -14,6 +14,7 @@ rootProject.name = "my-vault"
 include(
     "vault",
     "security",
+    "account:security",
     "account:domain",
     "account:repository",
     "account:webservice",

@@ -6,10 +6,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import vault.repositroy.account.AccountRepositoryJpa;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -38,18 +36,6 @@ public class SecurityConfiguration {
                 .httpBasic(withDefaults());
         return http.build();
     }
-
-    /**
-     * Basic authentication bean with jdbc.
-     *
-     * @param accountRepositoryJpa
-     * @return @{@link UserDetailsService}
-     */
-    @Bean
-    public UserDetailsService userDetailsService(final AccountRepositoryJpa accountRepositoryJpa) {
-        return new BasicAuthService(accountRepositoryJpa);
-    }
-
 
     /**
      * Password Encoder used by authentication flow.

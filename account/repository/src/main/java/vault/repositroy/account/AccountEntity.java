@@ -52,7 +52,6 @@ public class AccountEntity {
     @ToString.Include
     private long version;
 
-    @NotNull
     @Column(name = "created_date", nullable = false, updatable = false)
     private ZonedDateTime createdDate;
 
@@ -74,6 +73,10 @@ public class AccountEntity {
      */
     @PrePersist
     public void prePersist() {
+        if (this.createdDate == null) {
+            this.createdDate = ZonedDateTime.now();
+        }
+
         if (this.id == null) {
             this.id = UUID.randomUUID();
         }

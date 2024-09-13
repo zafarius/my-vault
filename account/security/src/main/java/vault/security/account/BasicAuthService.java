@@ -1,4 +1,4 @@
-package vault.security;
+package vault.security.account;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
@@ -6,18 +6,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
-import vault.repositroy.account.AccountEntity;
-import vault.repositroy.account.AccountRepositoryJpa;
-import vault.repositroy.roles.RolesEntity;
+import vault.domain.account.Account;
+import vault.domain.account.AccountRepository;
+import vault.domain.roles.Roles;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public class BasicAuthService implements UserDetailsService {
-    private final AccountRepositoryJpa accountRepositoryJpa;
+    private final AccountRepository accountRepository;
 
     /**
-     * Build {@link UserDetails} by finding user with {@link AccountRepositoryJpa}.
+     * Build {@link UserDetails} by finding user with {@link AccountRepository}.
      *
      * @param username
      * @return {@link UserDetails}
@@ -26,13 +26,13 @@ public class BasicAuthService implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        Optional<AccountEntity> account = accountRepositoryJpa.findByUsername(username);
-        return account.map(accountEntity ->
+        Optional<Account> account = accountRepository.findByUsername(username);
+        return account.map(account1 ->
                 User
                         .builder()
-                        .username(accountEntity.getUsername())
-                        .password(accountEntity.getPassword())
-                        .roles(accountEntity.getAccountRoles().stream().map(RolesEntity::getRoleName).toArray(String[]::new))
+                        .username(account1.getUsername())
+                        .password(account1.getPassword())
+                        .authorities(account1.getAccountRoles().stream().map(Roles::getRoleName).toArray(String[]::new))
                         .build()
         ).orElse(null);
     }

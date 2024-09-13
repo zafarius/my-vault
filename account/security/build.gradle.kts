@@ -12,14 +12,17 @@ dependencies {
     implementation(project(":account:domain"))
     implementation(project(":security"))
 
+
     implementation(libs.spring.boot.starter.data.jpa)
-    implementation(libs.spring.boot.starter.security)
     implementation(libs.jakarta.validation)
-    implementation(libs.flyway.core)
     implementation(libs.mapstruct)
-    annotationProcessor(libs.mapstruct.processor)
+    implementation(libs.spring.boot.starter.security)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
-    testImplementation(libs.h2.database)
+
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.spring.session.jdbc)
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.data.jpa)
 }

@@ -1,24 +1,27 @@
-package vault.security;
+package vault.security.account;
+
+import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import vault.repositroy.account.AccountEntity;
-import vault.repositroy.account.AccountRepositoryJpa;
-import lombok.val;
-import vault.repositroy.roles.RolesEntity;
-import static org.assertj.core.api.Assertions.assertThat;
+import vault.domain.account.Account;
+import vault.domain.account.AccountRepository;
+import vault.domain.roles.Roles;
+import vault.security.SecurityRoles;
 
 import java.util.Optional;
 import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class BasicAuthServiceTest {
 
     @Mock
-    private AccountRepositoryJpa accountRepositoryJpa;
+    private AccountRepository accountRepository;
 
     @InjectMocks
     private BasicAuthService basicAuthService;
@@ -30,23 +33,19 @@ public class BasicAuthServiceTest {
     void testLoadUserByUsername() {
         // setup
         val username = "sample";
-        val roles = new RolesEntity();
-        roles.setRoleName(Roles.USER.replace("ROLE_", ""));
+        val roles = new Roles(SecurityRoles.USER);
 
-        val accountEntity = new AccountEntity();
-        accountEntity.setUsername(username);
-        accountEntity.setPassword("password");
-        accountEntity.setAccountRoles(Set.of(roles));
+        val account = new Account("Userius", "password123", Set.of(roles));
 
-        Mockito.when(accountRepositoryJpa.findByUsername(username)).thenReturn(Optional.of(accountEntity));
+        Mockito.when(accountRepository.findByUsername(username)).thenReturn(Optional.of(account));
 
         // when
         val result = basicAuthService.loadUserByUsername(username);
 
         // then
         assertThat(result).isNotNull();
-        assertThat(result.getUsername()).isEqualTo(accountEntity.getUsername());
-        assertThat(result.getPassword()).isEqualTo(accountEntity.getPassword());
+        assertThat(result.getUsername()).isEqualTo(account.getUsername());
+        assertThat(result.getPassword()).isEqualTo(account.getPassword());
         assertThat(result.getAuthorities().toString()).contains(roles.getRoleName());
     }
 
@@ -58,7 +57,7 @@ public class BasicAuthServiceTest {
         // setup
         val username = "sample";
 
-        Mockito.when(accountRepositoryJpa.findByUsername(username)).thenReturn(Optional.empty());
+        Mockito.when(accountRepository.findByUsername(username)).thenReturn(Optional.empty());
 
         // when
         val result = basicAuthService.loadUserByUsername(username);

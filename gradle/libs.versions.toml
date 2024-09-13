@@ -14,6 +14,7 @@ openapi-generator = "7.8.0"
 springdoc-openapi = "1.8.0"
 openapitools-jackson-databind-nullable = "0.2.6"
 jakarta-servlet-api = "6.1.0"
+mapstruct = "1.6.0"
 
 [libraries]
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
@@ -27,10 +28,13 @@ flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core"
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 atomikos = { module = "com.atomikos:transactions-spring-boot3-starter", version.ref = "atomikos"}
 spring-session-jdbc = { module = "org.springframework.session:spring-session-jdbc", version.ref = "spring-session-jdbc"}
+mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct"}
+mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct"}
+
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakarta-validation"}
 jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api", version.ref = "jakarta-servlet-api"}
 
-spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-test", version.ref = "spring-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 junit-jupiter-mockito = { module = "org.mockito:mockito-junit-jupiter", version.ref = "junit-jupiter-mockito" }
 org-assertj-core = { module = "org.assertj:assertj-core", version.ref = "org-assertj-core" }

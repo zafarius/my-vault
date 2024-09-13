@@ -9,11 +9,10 @@ plugins {
 }
 
 dependencies {
-    api(libs.spring.boot.starter.security)
+    implementation(libs.spring.boot.starter.security)
     implementation(libs.spring.session.jdbc)
     implementation(libs.spring.boot.starter.web)
-
-    implementation(project(":account:repository"))
+    implementation(libs.spring.boot.starter.data.jpa)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)

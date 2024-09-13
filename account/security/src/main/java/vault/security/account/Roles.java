@@ -1,4 +1,4 @@
-package vault.security;
+package vault.security.account;
 
 public final class Roles {
 
