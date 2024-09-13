@@ -26,3 +26,8 @@ dependencies {
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.data.jpa)
 }
+
+//rename jar file
+tasks.getByName<Jar>("jar") {
+    archiveBaseName = "account-security"
+}
