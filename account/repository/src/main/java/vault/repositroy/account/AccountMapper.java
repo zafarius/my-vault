@@ -15,5 +15,6 @@ public interface AccountMapper {
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
     AccountEntity map(Account account);
+
     Account map(AccountEntity accountEntity);
 }

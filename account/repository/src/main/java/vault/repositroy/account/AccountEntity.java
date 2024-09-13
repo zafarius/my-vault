@@ -13,6 +13,7 @@ import jakarta.persistence.Version;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,6 +23,7 @@ import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
+@SuppressWarnings("MagicNumber")
 @Getter
 @Setter
 @Entity
@@ -41,6 +43,7 @@ public class AccountEntity {
     private UUID id;
 
     @NotNull
+    @Size(min = 5, max = 20)
     @Column(nullable = false, updatable = false)
     @ToString.Include
     private String username;

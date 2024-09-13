@@ -9,11 +9,16 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":account:webservice-contracts"))
+    implementation(project(":account:domain"))
+
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.jakarta.validation)
     implementation(libs.springdoc.openapi)
+    implementation(libs.mapstruct)
+    annotationProcessor(libs.mapstruct.processor)
+    compileOnly(libs.jakarta.servlet.api)
+
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
-    compileOnly(libs.jakarta.servlet.api)
-    implementation(project(":account:webservice-contracts"))
 }

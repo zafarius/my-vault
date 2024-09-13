@@ -1,51 +1,50 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Swagger Petstore
+  title: Accounts
 servers:
   - url: http://localhost:8080/v1
 paths:
-  /accounts:
+  /account:
     post:
-      summary: Create accounts
-      operationId: createAccounts
+      summary: Create account
+      operationId: createAccount
       tags:
         - accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestAccountDTO'
       responses:
-        '201':
-          description: Null response
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
+        '204':
+          description: Account successfully created.
+        '406':
+          description: Account already exists.
 components:
   schemas:
-    Account:
+    RequestAccountDTO:
+      "type": object
       required:
-        - id
-        - name
+        - username
+        - password
+        - accountRoles
       properties:
-        id:
-          type: integer
-          format: int64
-        name:
+        username:
           type: string
-        tag:
+          minLength: 5
+          maxLength: 10
+        password:
           type: string
-    Accounts:
-      type: array
-      items:
-        $ref: "#/components/schemas/Account"
-    Error:
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
+          minLength: 10
+          maxLength: 15
+        accountRoles:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountRoles"
+
+    AccountRoles:
+      type: string
+      enum:
+        - USER
+        - ADMIN

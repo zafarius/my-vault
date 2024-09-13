@@ -48,7 +48,7 @@ public class AccountRepositoryTest {
     private PasswordEncoder passwordEncoder;
 
     @Test
-    public void testAccountIsCreated() {
+    public void testCreateAccountAndFound() {
         // setup
         val role1 = new Roles(SecurityRoles.USER);
         val role2 = new Roles(SecurityRoles.ADMIN);
@@ -72,7 +72,7 @@ public class AccountRepositoryTest {
     }
 
     @Test
-    public void testAccountCreateDuplicateThrowsException() {
+    public void testCreateAccountDuplicateThrowsException() {
         // setup
         val role1 = new Roles(SecurityRoles.USER);
         val role2 = new Roles(SecurityRoles.ADMIN);
@@ -92,5 +92,10 @@ public class AccountRepositoryTest {
             entityManager.flush();
         }).isInstanceOf(ConstraintViolationException.class);
 
+    }
+
+    @Test
+    public void testAccountNotFound() {
+        assertThat(accountRepository.findByUsername("IdoNotExist").isPresent()).isFalse();
     }
 }
