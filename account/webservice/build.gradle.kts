@@ -11,6 +11,7 @@ plugins {
 dependencies {
     implementation(project(":account:webservice-contracts"))
     implementation(project(":account:domain"))
+    implementation(project(":common:domain"))
 
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.jakarta.validation)

@@ -8,6 +8,7 @@ import vault.account.model.RequestAccountDTO;
 import vault.domain.account.AccountService;
 import vault.webservice.contracts.account.AccountsApi;
 
+
 @Controller
 @RequiredArgsConstructor
 public class AccountController implements AccountsApi {
