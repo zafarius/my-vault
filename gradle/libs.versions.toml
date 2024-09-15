@@ -1,5 +1,7 @@
 [versions]
 spring-boot = "3.3.3"
+spring-web = "6.1.13"
+swagger-annotation = "2.2.22"
 junit-jupiter = "5.11.0"
 h2database= "2.3.230"
 flyway-core = "10.17.0"
@@ -11,17 +13,18 @@ jakarta-validation = "3.1.0"
 junit-jupiter-mockito = "5.12.0"
 org-assertj-core = "3.26.3"
 openapi-generator = "7.8.0"
-springdoc-openapi = "1.8.0"
 openapitools-jackson-databind-nullable = "0.2.6"
+jackson-core = "2.17.2"
 jakarta-servlet-api = "6.1.0"
 mapstruct = "1.6.0"
 
 [libraries]
+spring-web = { module = "org.springframework:spring-web", version.ref = "spring-web" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
-springdoc-openapi = { module = "org.springdoc:springdoc-openapi-ui", version.ref = "springdoc-openapi" }
 openapitools-jackson = { module = "org.openapitools:jackson-databind-nullable", version.ref = "openapitools-jackson-databind-nullable" }
+swagger-annotation = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger-annotation" }
 
 h2-database = { module = "com.h2database:h2", version.ref = "h2database" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core" }
@@ -30,7 +33,7 @@ atomikos = { module = "com.atomikos:transactions-spring-boot3-starter", version.
 spring-session-jdbc = { module = "org.springframework.session:spring-session-jdbc", version.ref = "spring-session-jdbc"}
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct"}
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct"}
-
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-core"}
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakarta-validation"}
 jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api", version.ref = "jakarta-servlet-api"}
 

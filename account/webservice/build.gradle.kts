@@ -15,7 +15,9 @@ dependencies {
 
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.jakarta.validation)
-    implementation(libs.springdoc.openapi)
+    implementation(libs.spring.web)
+    implementation(libs.swagger.annotation)
+    implementation(libs.jackson.databind)
     implementation(libs.mapstruct)
     annotationProcessor(libs.mapstruct.processor)
     compileOnly(libs.jakarta.servlet.api)

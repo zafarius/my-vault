@@ -11,11 +11,14 @@ plugins {
 dependencies {
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.jakarta.validation)
-    implementation(libs.springdoc.openapi)
     implementation(libs.openapitools.jackson)
+    implementation(libs.spring.web)
+    implementation(libs.swagger.annotation)
+
+    compileOnly(libs.jakarta.servlet.api)
+
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
-    compileOnly(libs.jakarta.servlet.api)
 }
 
 openApiMeta {
