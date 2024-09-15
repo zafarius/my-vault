@@ -61,6 +61,9 @@ public class AccountControllerTest {
                 post("/account")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestAccountDTO))
-                ).andExpect(MockMvcResultMatchers.status().isCreated());
+                )
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist()
+                );
     }
 }
