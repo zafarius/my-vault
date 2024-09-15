@@ -9,8 +9,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import vault.domain.account.Account;
 import vault.domain.account.AccountRepository;
+import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
-import vault.security.SecurityRoles;
 
 import java.util.Optional;
 import java.util.Set;

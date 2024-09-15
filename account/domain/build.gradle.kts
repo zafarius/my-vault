@@ -9,8 +9,15 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":common:domain"))
+
     implementation(libs.spring.boot.starter.web)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
+}
+
+//rename jar file
+tasks.getByName<Jar>("jar") {
+    archiveBaseName = "account-domain"
 }

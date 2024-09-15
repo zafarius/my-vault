@@ -2,6 +2,7 @@ package vault.domain.account;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import vault.domain.common.EntityAlreadyExists;
 
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class AccountServiceImpl implements AccountService {
     public Account createAccount(final Account account) {
 
         if (findByUsername(account.getUsername()).isPresent()) {
-            throw new RuntimeException("Account already exists.");
+            throw new EntityAlreadyExists(String.format("Account %s already exists.", account.getUsername()), Account.class);
         }
 
         return accountRepository.save(account);

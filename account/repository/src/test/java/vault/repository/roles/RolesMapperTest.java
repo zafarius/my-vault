@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
 import vault.repositroy.roles.RolesEntity;
 import vault.repositroy.roles.RolesMapperImpl;
-import vault.security.SecurityRoles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

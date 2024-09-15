@@ -6,13 +6,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import vault.domain.account.Account;
+import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
 import vault.repositroy.account.AccountEntity;
 import vault.repositroy.account.AccountMapperImpl;
 import lombok.val;
 import vault.repositroy.roles.RolesEntity;
 import vault.repositroy.roles.RolesMapper;
-import vault.security.SecurityRoles;
 import static org.mockito.Mockito.verify;
 
 import java.time.ZonedDateTime;

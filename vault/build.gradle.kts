@@ -15,7 +15,9 @@ dependencies {
     implementation(project(":account:webservice"))
     implementation(project(":account:domain"))
     implementation(project(":account:security"))
-    implementation(project(":security"))
+
+    implementation(project(":common:security"))
+    implementation(project(":common:domain"))
 
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.spring.boot.starter.web)

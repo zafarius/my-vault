@@ -10,7 +10,7 @@ plugins {
 
 dependencies {
     implementation(project(":account:domain"))
-    implementation(project(":security"))
+    implementation(project(":common:domain"))
 
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.spring.boot.starter.security)
@@ -22,4 +22,9 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.h2.database)
+}
+
+//rename jar file
+tasks.getByName<Jar>("jar") {
+    archiveBaseName = "account-repository"
 }

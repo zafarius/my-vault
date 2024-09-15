@@ -1,4 +1,4 @@
-package vault.security;
+package vault.domain.common;
 
 public final class SecurityRoles {
 

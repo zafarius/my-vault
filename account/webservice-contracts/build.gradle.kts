@@ -56,3 +56,8 @@ sourceSets {
         }
     }
 }
+
+//rename jar file
+tasks.getByName<Jar>("jar") {
+    archiveBaseName = "account-webservice-contracts"
+}

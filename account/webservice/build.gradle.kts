@@ -22,3 +22,8 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
 }
+
+//rename jar file
+tasks.getByName<Jar>("jar") {
+    archiveBaseName = "account-webservice"
+}

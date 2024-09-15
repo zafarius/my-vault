@@ -12,10 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import vault.domain.account.Account;
 import vault.domain.account.AccountRepository;
+import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
 import vault.repositroy.AccountRepositoryConfiguration;
 import lombok.val;
-import vault.security.SecurityRoles;
 
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;

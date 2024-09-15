@@ -13,7 +13,12 @@ plugins {
 rootProject.name = "my-vault"
 include(
     "vault",
-    "security",
+
+    //common
+    "common:security",
+    "common:domain",
+
+    //account domain
     "account:security",
     "account:domain",
     "account:repository",

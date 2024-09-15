@@ -9,13 +9,13 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.spring.boot.starter.security)
-    implementation(libs.spring.session.jdbc)
     implementation(libs.spring.boot.starter.web)
-    implementation(libs.spring.boot.starter.data.jpa)
 
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
-    testImplementation(libs.junit.jupiter.mockito)
-    testImplementation(libs.org.assertj.core)
+}
+
+//rename jar file
+tasks.getByName<Jar>("jar") {
+    archiveBaseName = "common-domain"
 }
