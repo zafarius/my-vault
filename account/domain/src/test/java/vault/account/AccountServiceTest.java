@@ -55,6 +55,10 @@ public class AccountServiceTest {
         // then
         assertThatThrownBy(
                 () -> accountService.createAccount(account)
-        ).isInstanceOf(EntityAlreadyExistsException.class);
+        ).isInstanceOf(EntityAlreadyExistsException.class)
+                .message()
+                .isEqualTo(
+                        "Account username1 already exists. Class: " + Account.class.getName()
+                );
     }
 }
