@@ -9,7 +9,7 @@ import vault.domain.account.Account;
 import vault.domain.account.AccountRepository;
 import vault.domain.account.AccountServiceImpl;
 import lombok.val;
-import vault.domain.common.EntityAlreadyExists;
+import vault.domain.common.EntityAlreadyExistsException;
 
 import java.util.Optional;
 import java.util.Set;
@@ -55,6 +55,6 @@ public class AccountServiceTest {
         // then
         assertThatThrownBy(
                 () -> accountService.createAccount(account)
-        ).isInstanceOf(EntityAlreadyExists.class);
+        ).isInstanceOf(EntityAlreadyExistsException.class);
     }
 }
