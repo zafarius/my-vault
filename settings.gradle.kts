@@ -16,6 +16,7 @@ include(
 
     //common
     "common:security",
+    "common:webservice",
     "common:domain",
 
     //account domain
