@@ -26,8 +26,6 @@ import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@AutoConfigureMockMvc
-@EnableAutoConfiguration
 @WebMvcTest(AccountController.class)
 @ContextConfiguration(classes = AccountControllerConfiguration.class)
 public class AccountControllerTest {
