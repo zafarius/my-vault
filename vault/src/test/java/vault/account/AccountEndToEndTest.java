@@ -14,8 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import vault.account.model.RequestAccountDTO;
 import vault.domain.account.Account;
 
-import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -37,7 +35,7 @@ public class AccountEndToEndTest {
         // setup
         val username = "user12";
         val password = "password123";
-        val requestAccountDTO = new RequestAccountDTO(username, password, List.of(vault.account.model.AccountRoles.USER));
+        val requestAccountDTO = new RequestAccountDTO(username, password);
 
         // then
         mockMvc.perform(
@@ -56,7 +54,7 @@ public class AccountEndToEndTest {
         // setup
         val username = "user123";
         val password = "password123";
-        val requestAccountDTO = new RequestAccountDTO(username, password, List.of(vault.account.model.AccountRoles.USER));
+        val requestAccountDTO = new RequestAccountDTO(username, password);
 
         // then
         mockMvc.perform(
@@ -80,8 +78,8 @@ public class AccountEndToEndTest {
     public void whenCreateAccountDuplicate_thenStatus406() throws Exception {
         // setup
         val username = "user1";
-        val requestAccountDTO1 = new RequestAccountDTO(username, "password123", List.of(vault.account.model.AccountRoles.USER));
-        val requestAccountDTO2 = new RequestAccountDTO(username, "password321", List.of(vault.account.model.AccountRoles.USER));
+        val requestAccountDTO1 = new RequestAccountDTO(username, "password123");
+        val requestAccountDTO2 = new RequestAccountDTO(username, "password321");
 
         // then
         mockMvc.perform(

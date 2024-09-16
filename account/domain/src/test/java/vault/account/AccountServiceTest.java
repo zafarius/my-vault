@@ -12,7 +12,6 @@ import lombok.val;
 import vault.domain.common.EntityAlreadyExistsException;
 
 import java.util.Optional;
-import java.util.Set;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,7 +29,7 @@ public class AccountServiceTest {
     @Test
     public void testCreateAccount() {
         // setup
-        val account = new Account("username1", "password", Set.of());
+        val account = new Account("username1", "password");
 
         // when
         when(accountRepository.findByUsername(account.getUsername())).thenReturn(Optional.empty());
@@ -47,7 +46,7 @@ public class AccountServiceTest {
     @Test
     public void testAccountExists() {
         // setup
-        val account = new Account("username1", "password", Set.of());
+        val account = new Account("username1", "password");
 
         // when
         when(accountRepository.findByUsername(account.getUsername())).thenReturn(Optional.of(account));

@@ -12,17 +12,13 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import vault.account.model.AccountRoles;
 import vault.domain.account.Account;
 import vault.domain.account.AccountService;
 import vault.account.model.RequestAccountDTO;
 import lombok.val;
 import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
-
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -50,8 +46,9 @@ public class AccountControllerTest {
         // setup
         val username = "user1";
         val password = "passwordSuper";
-        val requestAccountDTO = new RequestAccountDTO(username, password, List.of(AccountRoles.USER));
-        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
+        val requestAccountDTO = new RequestAccountDTO(username, password);
+        val account = new Account(username, password);
+        account.getAccountRoles().add(new Roles(SecurityRoles.USER));
 
         // when
         when(accountControllerMapper.map(requestAccountDTO)).thenReturn(account);
@@ -74,7 +71,9 @@ public class AccountControllerTest {
         // setup
         val username = "user1";
         val password = "passwordSuper";
-        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
+        val account = new Account(username, password);
+        account.getAccountRoles().add(new Roles(SecurityRoles.USER));
+
         account.setId(UUID.randomUUID());
         val responseAccountDTO = new vault.account.model.ResponseAccountDTO(account.getId(), account.getUsername());
 
@@ -93,35 +92,14 @@ public class AccountControllerTest {
     }
 
     @Test
-    void whenCreateAccountEmptyRoles_ThenStatus400() throws Exception {
-        // setup
-        val username = "user1";
-        val password = "password123";
-        val requestAccountDTO = new RequestAccountDTO(username, password, List.of());
-        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
-
-        // when
-        when(accountControllerMapper.map(requestAccountDTO)).thenReturn(account);
-        when(accountService.createAccount(account)).thenReturn(account);
-
-        // then
-        mockMvc.perform(
-                        post("/account")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(requestAccountDTO))
-                )
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist()
-                );
-    }
-
-    @Test
     void whenCreateAccountMalFormedUserName_ThenStatus400() throws Exception {
         // setup
         val username = "user";
         val password = "password123";
-        val requestAccountDTO = new RequestAccountDTO(username, password, List.of());
-        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
+        val requestAccountDTO = new RequestAccountDTO(username, password);
+        val account = new Account(username, password);
+        account.getAccountRoles().add(new Roles(SecurityRoles.USER));
+
 
         // when
         when(accountControllerMapper.map(requestAccountDTO)).thenReturn(account);
@@ -143,8 +121,10 @@ public class AccountControllerTest {
         // setup
         val username = "user1";
         val password = "pass";
-        val requestAccountDTO = new RequestAccountDTO(username, password, List.of());
-        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
+        val requestAccountDTO = new RequestAccountDTO(username, password);
+        val account = new Account(username, password);
+        account.getAccountRoles().add(new Roles(SecurityRoles.USER));
+
 
         // when
         when(accountControllerMapper.map(requestAccountDTO)).thenReturn(account);

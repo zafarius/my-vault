@@ -33,7 +33,8 @@ public class AccountMapperTest {
     public void testMapAccountToAccountEntity() {
         // setup
         val role = new Roles(SecurityRoles.USER);
-        val account = new Account("UserA", "random", Set.of(role));
+        val account = new Account("UserA", "random");
+        account.getAccountRoles().add(role);
         account.setId(UUID.randomUUID());
 
         // when

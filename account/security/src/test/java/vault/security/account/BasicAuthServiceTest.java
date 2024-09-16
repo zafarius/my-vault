@@ -11,9 +11,7 @@ import vault.domain.account.Account;
 import vault.domain.account.AccountRepository;
 import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
-
 import java.util.Optional;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,9 +31,10 @@ public class BasicAuthServiceTest {
     void testLoadUserByUsername() {
         // setup
         val username = "sample";
-        val roles = new Roles(SecurityRoles.USER);
+        val role1 = new Roles(SecurityRoles.USER);
 
-        val account = new Account("Userius", "password123", Set.of(roles));
+        val account = new Account("Userius", "password123");
+        account.getAccountRoles().add(role1);
 
         Mockito.when(accountRepository.findByUsername(username)).thenReturn(Optional.of(account));
 
@@ -46,7 +45,7 @@ public class BasicAuthServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.getUsername()).isEqualTo(account.getUsername());
         assertThat(result.getPassword()).isEqualTo(account.getPassword());
-        assertThat(result.getAuthorities().toString()).contains(roles.getRoleName());
+        assertThat(result.getAuthorities().toString()).contains(role1.getRoleName());
     }
 
     /**

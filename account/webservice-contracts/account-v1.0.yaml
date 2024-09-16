@@ -53,11 +53,6 @@ components:
           format: password
           minLength: 10
           maxLength: 15
-        accountRoles:
-          type: array
-          minItems: 1
-          items:
-            $ref: "#/components/schemas/AccountRoles"
     ResponseAccountDTO:
       "type": object
       required:
@@ -74,8 +69,3 @@ components:
       type: string
       minLength: 5
       maxLength: 10
-    AccountRoles:
-      type: string
-      enum:
-        - USER
-        - ADMIN

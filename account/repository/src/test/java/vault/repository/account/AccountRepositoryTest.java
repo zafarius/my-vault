@@ -22,8 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
-import java.util.Set;
-
 @EnableAutoConfiguration
 @DataJpaTest
 @ContextConfiguration(classes = AccountRepositoryConfiguration.class)
@@ -54,7 +52,9 @@ public class AccountRepositoryTest {
         val role2 = new Roles(SecurityRoles.ADMIN);
         val password = "superSecurePassword";
         val passwordEncoded = "$2a$12$nSwMArKJZY.rnTLdYQS00OABLwN6u6wefqbP6W1jHP0RlSrTn9lBS";
-        val account = new Account("User1", password, Set.of(role1, role2));
+        val account = new Account("User1", password);
+        account.getAccountRoles().add(role1);
+        account.getAccountRoles().add(role2);
 
         // when
         when(passwordEncoder.encode(password)).thenReturn(passwordEncoded);
@@ -77,8 +77,12 @@ public class AccountRepositoryTest {
         val role1 = new Roles(SecurityRoles.USER);
         val role2 = new Roles(SecurityRoles.ADMIN);
         val password = "superSecurePassword";
-        val account1 = new Account("UserA", password, Set.of(role1, role2));
-        val account2 = new Account("UserA", password, Set.of(role1));
+        val account1 = new Account("UserA", password);
+        account1.getAccountRoles().add(role1);
+        account1.getAccountRoles().add(role2);
+        val account2 = new Account("UserA", password);
+        account2.getAccountRoles().add(role1);
+
 
         // when
         when(passwordEncoder.encode(password)).thenReturn("$2a$12$nSwMArKJZY.rnTLdYQS00OABLwN6u6wefqbP6W1jHP0RlSrTn9lBS");
