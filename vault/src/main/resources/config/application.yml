@@ -47,11 +47,11 @@ spring:
     driverClassName: org.h2.Driver
     username: root
     password: vault
-  flyway:
-    schemas: vault
-    create-schemas: true
-    fail-on-missing-locations: true
-    validate-migration-naming: true
+  #flyway:
+  #  schemas: vault
+  #  create-schemas: true
+  #  fail-on-missing-locations: true
+  #  validate-migration-naming: true
 logging:
   level:
     com:

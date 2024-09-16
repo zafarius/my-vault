@@ -10,13 +10,26 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.spring.boot.starter.web)
-    implementation(libs.h2.database)
-    implementation(libs.flyway.core)
-    implementation(libs.atomikos)
     implementation(project(":account:repository"))
-    implementation(project(":security"))
+    implementation(project(":account:webservice-contracts"))
+    implementation(project(":account:webservice"))
+    implementation(project(":account:domain"))
+    implementation(project(":account:security"))
 
+    implementation(project(":common:security"))
+    implementation(project(":common:webservice"))
+    implementation(project(":common:domain"))
+
+    implementation(libs.spring.boot.starter.validation)
+    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.h2.database)
+    implementation(libs.atomikos)
+    implementation(libs.spring.web)
+    implementation(libs.swagger.annotation)
+
+    testImplementation(libs.spring.security.test)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.junit.jupiter.mockito)

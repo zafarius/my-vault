@@ -9,5 +9,8 @@
 
     <suppress checks="HideUtilityClassConstructor" files="VaultApplication.java"/>
     <suppress checks="MissingJavadocMethod" files="VaultApplication.java"/>
+    <suppress checks="[a-zA-Z0-9]*" files="[\\/]generate-resources[\\/]"/>
+    <suppress checks="MethodName" files="[\\/]test[\\/]"/>
+
 
 </suppressions>

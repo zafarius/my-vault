@@ -11,4 +11,18 @@ plugins {
 }
 
 rootProject.name = "my-vault"
-include("vault", "security", "account:repository")
+include(
+    "vault",
+
+    //common
+    "common:security",
+    "common:webservice",
+    "common:domain",
+
+    //account domain
+    "account:security",
+    "account:domain",
+    "account:repository",
+    "account:webservice",
+    "account:webservice-contracts"
+)
