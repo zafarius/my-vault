@@ -23,6 +23,7 @@ spring-web = { module = "org.springframework:spring-web", version.ref = "spring-
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-boot" }
 openapitools-jackson = { module = "org.openapitools:jackson-databind-nullable", version.ref = "openapitools-jackson-databind-nullable" }
 swagger-annotation = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger-annotation" }
 

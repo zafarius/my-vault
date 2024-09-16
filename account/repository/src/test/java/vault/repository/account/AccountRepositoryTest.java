@@ -54,7 +54,7 @@ public class AccountRepositoryTest {
         val role2 = new Roles(SecurityRoles.ADMIN);
         val password = "superSecurePassword";
         val passwordEncoded = "$2a$12$nSwMArKJZY.rnTLdYQS00OABLwN6u6wefqbP6W1jHP0RlSrTn9lBS";
-        val account = new Account("UserA", password, Set.of(role1, role2));
+        val account = new Account("User1", password, Set.of(role1, role2));
 
         // when
         when(passwordEncoder.encode(password)).thenReturn(passwordEncoded);

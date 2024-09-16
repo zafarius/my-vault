@@ -41,10 +41,10 @@ public class AccountControllerTest {
     private AccountControllerMapper accountControllerMapper;
 
     @Test
-    void createAccountShouldReturnStatus204() throws Exception {
+    void whenCreateAccount_ThenStatus201() throws Exception {
         // setup
-        val username = "user";
-        val password = "password";
+        val username = "user1";
+        val password = "passwordSuper";
         val requestAccountDTO = new RequestAccountDTO(username, password, List.of(AccountRoles.USER));
         val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
 
@@ -59,6 +59,75 @@ public class AccountControllerTest {
                         .content(objectMapper.writeValueAsString(requestAccountDTO))
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist()
+                );
+    }
+
+    @Test
+    void whenCreateAccountEmptyRoles_ThenStatus400() throws Exception {
+        // setup
+        val username = "user1";
+        val password = "password123";
+        val requestAccountDTO = new RequestAccountDTO(username, password, List.of());
+        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
+
+        // when
+        when(accountControllerMapper.map(requestAccountDTO)).thenReturn(account);
+        when(accountService.createAccount(account)).thenReturn(account);
+
+        // then
+        mockMvc.perform(
+                        post("/account")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestAccountDTO))
+                )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist()
+                );
+    }
+
+    @Test
+    void whenCreateAccountMalFormedUserName_ThenStatus400() throws Exception {
+        // setup
+        val username = "user";
+        val password = "password123";
+        val requestAccountDTO = new RequestAccountDTO(username, password, List.of());
+        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
+
+        // when
+        when(accountControllerMapper.map(requestAccountDTO)).thenReturn(account);
+        when(accountService.createAccount(account)).thenReturn(account);
+
+        // then
+        mockMvc.perform(
+                        post("/account")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestAccountDTO))
+                )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist()
+                );
+    }
+
+    @Test
+    void whenCreateAccountMalFormedPassword_ThenStatus400() throws Exception {
+        // setup
+        val username = "user1";
+        val password = "pass";
+        val requestAccountDTO = new RequestAccountDTO(username, password, List.of());
+        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
+
+        // when
+        when(accountControllerMapper.map(requestAccountDTO)).thenReturn(account);
+        when(accountService.createAccount(account)).thenReturn(account);
+
+        // then
+        mockMvc.perform(
+                        post("/account")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestAccountDTO))
+                )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist()
                 );
     }

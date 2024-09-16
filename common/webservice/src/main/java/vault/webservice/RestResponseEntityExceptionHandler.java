@@ -17,7 +17,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
             final WebRequest request) {
         return handleExceptionInternal(
                 ex,
-                "",
+                ex.getMessage(),
                 new HttpHeaders(),
                 HttpStatus.CONFLICT,
                 request

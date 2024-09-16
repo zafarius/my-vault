@@ -17,7 +17,9 @@ paths:
             schema:
               $ref: '#/components/schemas/RequestAccountDTO'
       responses:
-        '204':
+        '400':
+          description: Request not valid.
+        '201':
           description: Account successfully created.
         '406':
           description: Account already exists.
@@ -40,6 +42,7 @@ components:
           maxLength: 15
         accountRoles:
           type: array
+          minItems: 1
           items:
             $ref: "#/components/schemas/AccountRoles"
 
