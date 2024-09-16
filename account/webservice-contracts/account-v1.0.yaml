@@ -17,10 +17,10 @@ paths:
             schema:
               $ref: '#/components/schemas/RequestAccountDTO'
       responses:
-        '400':
-          description: Request not valid.
         '201':
           description: Account successfully created.
+        '400':
+          description: Request malformed.
         '406':
           description: Account already exists.
 components:
