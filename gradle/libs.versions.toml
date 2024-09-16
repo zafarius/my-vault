@@ -9,6 +9,7 @@ lombok = "1.18.34"
 lombok-plugin = "8.7.1"
 atomikos = "6.0.0"
 spring-session-jdbc = "3.3.2"
+spring-security-test = "6.3.3"
 jakarta-validation = "3.1.0"
 junit-jupiter-mockito = "5.12.0"
 org-assertj-core = "3.26.3"
@@ -38,6 +39,7 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", ver
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakarta-validation"}
 jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api", version.ref = "jakarta-servlet-api"}
 
+spring-security-test = { module = "org.springframework.security:spring-security-test", version.ref = "spring-security-test" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 junit-jupiter-mockito = { module = "org.mockito:mockito-junit-jupiter", version.ref = "junit-jupiter-mockito" }

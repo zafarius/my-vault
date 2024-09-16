@@ -13,13 +13,26 @@ import vault.domain.common.EntityAlreadyExistsException;
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {EntityAlreadyExistsException.class})
     protected ResponseEntity<Object> handleConflict(
-            final RuntimeException ex,
+            final EntityAlreadyExistsException ex,
             final WebRequest request) {
         return handleExceptionInternal(
                 ex,
                 ex.getMessage(),
                 new HttpHeaders(),
                 HttpStatus.CONFLICT,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = {RuntimeException.class})
+    protected ResponseEntity<Object> handleConflict(
+            final RuntimeException ex,
+            final WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                ex.getMessage(),
+                new HttpHeaders(),
+                HttpStatus.INTERNAL_SERVER_ERROR,
                 request
         );
     }

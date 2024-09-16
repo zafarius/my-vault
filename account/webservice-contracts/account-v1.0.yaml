@@ -6,6 +6,20 @@ servers:
   - url: http://localhost:8080/v1
 paths:
   /account:
+    get:
+      summary: Retrieve account information
+      operationId: getAccount
+      tags:
+        - accounts
+      responses:
+        200:
+          description: Account information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAccountDTO'
+        401:
+          description: "Not authorized."
     post:
       summary: Create account
       operationId: createAccount
@@ -17,11 +31,11 @@ paths:
             schema:
               $ref: '#/components/schemas/RequestAccountDTO'
       responses:
-        '201':
+        201:
           description: Account successfully created.
-        '400':
+        400:
           description: Request malformed.
-        '406':
+        406:
           description: Account already exists.
 components:
   schemas:
@@ -33,11 +47,10 @@ components:
         - accountRoles
       properties:
         username:
-          type: string
-          minLength: 5
-          maxLength: 10
+          $ref: "#/components/schemas/Username"
         password:
           type: string
+          format: password
           minLength: 10
           maxLength: 15
         accountRoles:
@@ -45,7 +58,22 @@ components:
           minItems: 1
           items:
             $ref: "#/components/schemas/AccountRoles"
+    ResponseAccountDTO:
+      "type": object
+      required:
+        - id
+        - username
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          $ref: "#/components/schemas/Username"
 
+    Username:
+      type: string
+      minLength: 5
+      maxLength: 10
     AccountRoles:
       type: string
       enum:

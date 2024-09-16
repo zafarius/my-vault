@@ -29,6 +29,7 @@ dependencies {
     implementation(libs.spring.web)
     implementation(libs.swagger.annotation)
 
+    testImplementation(libs.spring.security.test)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.junit.jupiter.mockito)

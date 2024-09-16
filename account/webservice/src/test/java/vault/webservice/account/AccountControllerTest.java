@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -20,12 +21,16 @@ import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@WebMvcTest(AccountController.class)
+@WebMvcTest
 @ContextConfiguration(classes = AccountControllerConfiguration.class)
+
 public class AccountControllerTest {
 
     @Autowired
@@ -54,12 +59,36 @@ public class AccountControllerTest {
 
         // then
         mockMvc.perform(
-                post("/account")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestAccountDTO))
+                        post("/account")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestAccountDTO))
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist()
+                );
+    }
+
+    @Test
+    @WithMockUser(value = "user1", password = "passwordSuper")
+    void whenGetAccountExists_ThenStatus200() throws Exception {
+        // setup
+        val username = "user1";
+        val password = "passwordSuper";
+        val account = new Account(username, password, Set.of(new Roles(SecurityRoles.USER)));
+        account.setId(UUID.randomUUID());
+        val responseAccountDTO = new vault.account.model.ResponseAccountDTO(account.getId(), account.getUsername());
+
+        // when
+        when(accountControllerMapper.map(account)).thenReturn(responseAccountDTO);
+        when(accountService.findByUsername(account.getUsername())).thenReturn(Optional.of(account));
+
+        // then
+        mockMvc.perform(
+                        get("/account")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(account.getId().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value(account.getUsername())
                 );
     }
 

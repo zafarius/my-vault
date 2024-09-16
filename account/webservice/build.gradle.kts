@@ -11,10 +11,13 @@ plugins {
 dependencies {
     implementation(project(":account:webservice-contracts"))
     implementation(project(":account:domain"))
+
     implementation(project(":common:domain"))
+    implementation(project(":common:security"))
 
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.security)
     implementation(libs.jakarta.validation)
     implementation(libs.spring.web)
     implementation(libs.swagger.annotation)
@@ -23,6 +26,7 @@ dependencies {
     annotationProcessor(libs.mapstruct.processor)
     compileOnly(libs.jakarta.servlet.api)
 
+    testImplementation(libs.spring.security.test)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)
 }

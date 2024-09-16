@@ -34,12 +34,14 @@ public class AccountMapperTest {
         // setup
         val role = new Roles(SecurityRoles.USER);
         val account = new Account("UserA", "random", Set.of(role));
+        account.setId(UUID.randomUUID());
 
         // when
         val accountEntity = accountMapper.map(account);
 
         // then
-        assertThat(accountEntity.getUsername()).isEqualTo(account.getUsername());
+        assertThat(accountEntity.getPassword()).isEqualTo(account.getPassword());
+        assertThat(accountEntity.getId()).isEqualTo(account.getId());
         assertThat(accountEntity.getPassword()).isEqualTo(account.getPassword());
         verify(rolesMapper).map(role);
     }

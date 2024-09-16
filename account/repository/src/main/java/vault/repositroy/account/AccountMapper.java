@@ -11,7 +11,6 @@ import vault.repositroy.roles.RolesMapper;
         uses = {RolesMapper.class}
 )
 public interface AccountMapper {
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
     AccountEntity map(Account account);
