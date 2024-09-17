@@ -1,4 +1,4 @@
-package vault.repositroy;
+package vault.repositroy.account;
 
 import lombok.val;
 

@@ -11,14 +11,13 @@ import vault.domain.roles.Roles;
 import vault.repositroy.account.AccountEntity;
 import vault.repositroy.account.AccountMapperImpl;
 import lombok.val;
-import vault.repositroy.roles.RolesEntity;
-import vault.repositroy.roles.RolesMapper;
-import static org.mockito.Mockito.verify;
-
+import vault.repositroy.account.RolesEntity;
+import vault.repositroy.account.RolesMapper;
 import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
+import static org.mockito.Mockito.verify;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)

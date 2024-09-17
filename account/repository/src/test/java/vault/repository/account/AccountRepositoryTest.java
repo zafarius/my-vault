@@ -14,7 +14,7 @@ import vault.domain.account.Account;
 import vault.domain.account.AccountRepository;
 import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
-import vault.repositroy.AccountRepositoryConfiguration;
+import vault.repositroy.account.AccountRepositoryConfiguration;
 import lombok.val;
 
 import static org.mockito.Mockito.when;

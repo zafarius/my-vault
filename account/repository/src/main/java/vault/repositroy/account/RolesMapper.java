@@ -1,4 +1,4 @@
-package vault.repositroy.roles;
+package vault.repositroy.account;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

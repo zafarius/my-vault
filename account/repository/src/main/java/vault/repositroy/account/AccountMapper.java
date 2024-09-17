@@ -4,7 +4,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import vault.domain.account.Account;
-import vault.repositroy.roles.RolesMapper;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,

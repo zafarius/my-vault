@@ -1,4 +1,4 @@
-package vault.repository.roles;
+package vault.repository.account;
 
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -7,8 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
-import vault.repositroy.roles.RolesEntity;
-import vault.repositroy.roles.RolesMapperImpl;
+import vault.repositroy.account.RolesEntity;
+import vault.repositroy.account.RolesMapperImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

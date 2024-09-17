@@ -17,7 +17,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import vault.repositroy.roles.RolesEntity;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
