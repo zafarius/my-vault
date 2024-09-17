@@ -20,7 +20,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(
-        schema = "vault",
+        schema = "account",
         name = "roles")
 public final class RolesEntity {
 
