@@ -22,14 +22,14 @@ import java.sql.SQLException;
  */
 @AutoConfigureBefore(FlywayAutoConfiguration.class)
 @Configuration
-@EntityScan
-@EnableJpaRepositories
+@EntityScan(basePackageClasses = AccountRepositoryConfiguration.class)
+@EnableJpaRepositories(basePackageClasses = AccountRepositoryConfiguration.class)
 @EnableTransactionManagement(proxyTargetClass = true)
-@ComponentScan
+@ComponentScan(basePackageClasses = AccountRepositoryConfiguration.class)
 public class AccountRepositoryConfiguration {
     @Bean(initMethod = "migrate")
     @FlywayDataSource
-    public Flyway flywayOrganization(final DataSource dataSource) throws SQLException {
+    public Flyway flywayAccount(final DataSource dataSource) throws SQLException {
         try (val con = dataSource.getConnection()) {
             val vendor = con.getMetaData().getDatabaseProductName().toLowerCase();
             return new Flyway(
@@ -37,7 +37,7 @@ public class AccountRepositoryConfiguration {
                             .createSchemas(true)
                             .schemas("account")
                             .defaultSchema("account")
-                            .locations(String.format("classpath:db/migration/%s", vendor))
+                            .locations(String.format("classpath:db/migration/account/%s", vendor))
                             .table("schema_version")
                             .installedBy("Vault - Account")
                             .failOnMissingLocations(true)
