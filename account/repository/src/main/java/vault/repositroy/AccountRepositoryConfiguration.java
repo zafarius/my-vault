@@ -35,8 +35,8 @@ public class AccountRepositoryConfiguration {
             return new Flyway(
                     new FluentConfiguration()
                             .createSchemas(true)
-                            .schemas("vault")
-                            .defaultSchema("vault")
+                            .schemas("account")
+                            .defaultSchema("account")
                             .locations(String.format("classpath:db/migration/%s", vendor))
                             .table("schema_version")
                             .installedBy("Vault - Account")

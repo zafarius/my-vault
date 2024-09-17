@@ -28,7 +28,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(
-        schema = "vault",
+        schema = "account",
         name = "account",
         uniqueConstraints = {
                 @UniqueConstraint(
@@ -65,7 +65,7 @@ public class AccountEntity {
     @NotNull
     @ManyToMany
     @JoinTable(
-            schema = "vault",
+            schema = "account",
             name = "account_roles",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "role_name"))
