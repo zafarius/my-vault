@@ -1,4 +1,4 @@
-package vault.repositroy.account;
+package vault.repositroy;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

@@ -14,10 +14,13 @@ dependencies {
     implementation(project(":account:webservice-contracts"))
     implementation(project(":account:webservice"))
     implementation(project(":account:domain"))
-    implementation(project(":account:security"))
+    implementation(project(":account:security-auth"))
+
+    //implementation(project(":file:repository"))
 
     implementation(project(":common:security"))
     implementation(project(":common:webservice"))
+    implementation(project(":common:repository-data-model"))
     implementation(project(":common:domain"))
 
     implementation(libs.spring.boot.starter.validation)

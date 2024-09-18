@@ -17,12 +17,19 @@ include(
     //common
     "common:security",
     "common:webservice",
+    "common:repository-data-model",
     "common:domain",
 
     //account domain
-    "account:security",
+    "account:security-auth",
     "account:domain",
     "account:repository",
     "account:webservice",
-    "account:webservice-contracts"
+    "account:webservice-contracts",
+
+    //file domain
+/*    "file:domain",
+    "file:repository",
+    "file:webservice",
+    "file:webservice-contracts"*/
 )

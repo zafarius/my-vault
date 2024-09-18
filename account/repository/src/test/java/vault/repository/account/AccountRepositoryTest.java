@@ -14,8 +14,8 @@ import vault.domain.account.Account;
 import vault.domain.account.AccountRepository;
 import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
-import vault.repositroy.account.AccountRepositoryConfiguration;
 import lombok.val;
+import vault.repositroy.DataRepositoryConfiguration;
 
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @EnableAutoConfiguration
 @DataJpaTest
-@ContextConfiguration(classes = AccountRepositoryConfiguration.class)
+@ContextConfiguration(classes = DataRepositoryConfiguration.class)
 @TestPropertySource(
         properties = {
                 "spring.jpa.hibernate.ddl-auto=validate",

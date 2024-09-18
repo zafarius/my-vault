@@ -1,7 +1,7 @@
 /**
  * Entity class that represents roles table
  */
-package vault.repositroy.account;
+package vault.repositroy;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(
-        schema = "account",
+        schema = "vault",
         name = "roles")
 public final class RolesEntity {
 

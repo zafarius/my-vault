@@ -30,5 +30,5 @@ dependencies {
 
 //rename jar file
 tasks.getByName<Jar>("jar") {
-    archiveBaseName = "account-security"
+    archiveBaseName = "account-security-auth"
 }

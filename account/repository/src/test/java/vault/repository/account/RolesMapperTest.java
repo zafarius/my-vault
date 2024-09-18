@@ -7,8 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
-import vault.repositroy.account.RolesEntity;
-import vault.repositroy.account.RolesMapperImpl;
+import vault.repositroy.RolesEntity;
+import vault.repositroy.RolesMapperImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

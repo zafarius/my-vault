@@ -1,4 +1,4 @@
-package vault.repositroy.account;
+package vault.repositroy;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(
-        schema = "account",
+        schema = "vault",
         name = "account",
         uniqueConstraints = {
                 @UniqueConstraint(
@@ -64,7 +64,7 @@ public class AccountEntity {
     @NotNull
     @ManyToMany
     @JoinTable(
-            schema = "account",
+            schema = "vault",
             name = "account_roles",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "role_name"))

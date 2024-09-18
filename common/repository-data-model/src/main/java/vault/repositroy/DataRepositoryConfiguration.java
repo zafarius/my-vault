@@ -1,4 +1,4 @@
-package vault.repositroy.account;
+package vault.repositroy;
 
 import lombok.val;
 
@@ -22,24 +22,24 @@ import java.sql.SQLException;
  */
 @AutoConfigureBefore(FlywayAutoConfiguration.class)
 @Configuration
-@EntityScan(basePackageClasses = AccountRepositoryConfiguration.class)
-@EnableJpaRepositories(basePackageClasses = AccountRepositoryConfiguration.class)
+@EntityScan
+@EnableJpaRepositories
 @EnableTransactionManagement(proxyTargetClass = true)
-@ComponentScan(basePackageClasses = AccountRepositoryConfiguration.class)
-public class AccountRepositoryConfiguration {
+@ComponentScan
+public class DataRepositoryConfiguration {
     @Bean(initMethod = "migrate")
     @FlywayDataSource
-    public Flyway flywayAccount(final DataSource dataSource) throws SQLException {
+    public Flyway flywayData(final DataSource dataSource) throws SQLException {
         try (val con = dataSource.getConnection()) {
             val vendor = con.getMetaData().getDatabaseProductName().toLowerCase();
             return new Flyway(
                     new FluentConfiguration()
                             .createSchemas(true)
-                            .schemas("account")
-                            .defaultSchema("account")
-                            .locations(String.format("classpath:db/migration/account/%s", vendor))
+                            .schemas("vault")
+                            .defaultSchema("vault")
+                            .locations(String.format("classpath:db/migration/%s", vendor))
                             .table("schema_version")
-                            .installedBy("Vault - Account")
+                            .installedBy("Vault")
                             .failOnMissingLocations(true)
                             .validateMigrationNaming(true)
                             .dataSource(dataSource));
