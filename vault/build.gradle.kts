@@ -16,7 +16,10 @@ dependencies {
     implementation(project(":account:domain"))
     implementation(project(":account:security-auth"))
 
-    //implementation(project(":file:repository"))
+    implementation(project(":file:repository"))
+    implementation(project(":file:webservice-contracts"))
+    implementation(project(":file:webservice"))
+    implementation(project(":file:domain"))
 
     implementation(project(":common:security"))
     implementation(project(":common:webservice"))

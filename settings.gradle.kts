@@ -28,8 +28,8 @@ include(
     "account:webservice-contracts",
 
     //file domain
-/*    "file:domain",
+    "file:domain",
     "file:repository",
     "file:webservice",
-    "file:webservice-contracts"*/
+    "file:webservice-contracts"
 )
