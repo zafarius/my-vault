@@ -15,7 +15,7 @@ import vault.domain.account.AccountRepository;
 import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
 import lombok.val;
-import vault.repositroy.DataRepositoryConfiguration;
+import vault.repository.DataRepositoryConfiguration;
 
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;

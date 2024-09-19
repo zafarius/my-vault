@@ -56,3 +56,5 @@ logging:
   level:
     com:
       atomikos: DEBUG
+files:
+  output_dir: "/tmp"
