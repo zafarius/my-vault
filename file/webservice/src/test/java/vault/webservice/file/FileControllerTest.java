@@ -3,17 +3,22 @@ package vault.webservice.file;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import vault.domain.common.SecurityRoles;
 import vault.domain.file.FileService;
 import lombok.val;
+
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -23,9 +28,10 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 
-@WebMvcTest
 @ContextConfiguration(classes = FileControllerConfiguration.class)
-
+@WebMvcTest(controllers = FileController.class)
+@AutoConfigureMockMvc
+@ImportAutoConfiguration(AopAutoConfiguration.class)
 public class FileControllerTest {
 
     @Autowired
@@ -35,6 +41,7 @@ public class FileControllerTest {
     private FileService fileService;
 
     @Test
+    @WithMockUser(authorities = SecurityRoles.USER)
     void whenCreateFiles_ThenStatus201() throws Exception {
         // setup
         val accountId = UUID.randomUUID();
@@ -58,6 +65,7 @@ public class FileControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = SecurityRoles.USER)
     void whenGetFiles_ThenStatus200() throws Exception {
         // setup
         val response = "Hallo".getBytes();

@@ -5,6 +5,9 @@ import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -24,8 +27,10 @@ import java.util.UUID;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@WebMvcTest
 @ContextConfiguration(classes = AccountControllerConfiguration.class)
+@WebMvcTest(controllers = AccountController.class)
+@AutoConfigureMockMvc
+@ImportAutoConfiguration(AopAutoConfiguration.class)
 
 public class AccountControllerTest {
 
@@ -66,7 +71,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(value = "user1", password = "passwordSuper")
+    @WithMockUser(username = "user1", authorities = SecurityRoles.USER)
     void whenGetAccountExists_ThenStatus200() throws Exception {
         // setup
         val username = "user1";

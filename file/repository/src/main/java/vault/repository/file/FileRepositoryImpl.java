@@ -43,7 +43,11 @@ public class FileRepositoryImpl implements FileRepository {
 
     @Override
     public List<File> findByAccountId(final UUID accountId) {
-        return fileRepositoryJpa.findByAccountId(accountId).stream().map(this::toFile).toList();
+        return fileRepositoryJpa.
+                findByAccountId(accountId)
+                .stream()
+                .map(this::toFile)
+                .toList();
     }
 
     private String saveAsFile(final UUID accountId, final InputStream fileContent, final String fileName) {

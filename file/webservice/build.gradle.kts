@@ -13,6 +13,9 @@ dependencies {
     implementation(project(":file:domain"))
 
     implementation(project(":common:domain"))
+    implementation(project(":common:security"))
+
+    implementation(libs.spring.boot.starter.security)
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.jakarta.validation)
@@ -24,6 +27,7 @@ dependencies {
     compileOnly(libs.jakarta.servlet.api)
 
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.spring.security.test)
     testImplementation(libs.spring.boot.starter.test)
 }
 

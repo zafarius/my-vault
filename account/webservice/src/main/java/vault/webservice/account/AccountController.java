@@ -3,12 +3,14 @@ package vault.webservice.account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import vault.account.model.RequestAccountDTO;
 import vault.account.model.ResponseAccountDTO;
 import vault.domain.account.AccountService;
+import vault.domain.common.SecurityRoles;
 import vault.webservice.contracts.account.AccountsApi;
 import lombok.val;
 
@@ -25,6 +27,7 @@ public class AccountController implements AccountsApi {
     }
 
     @Override
+    @Secured(SecurityRoles.USER)
     public ResponseEntity<ResponseAccountDTO> getAccount() {
         val userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         val account = accountService.findByUsername(userDetails.getUsername());
