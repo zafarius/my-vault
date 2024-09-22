@@ -31,7 +31,7 @@ public class FileServiceTest {
     public void testCreateFile() {
         // setup
         val accountId = UUID.randomUUID();
-        val file = new File(
+        val file = new VaultFile(
                 "Sample",
                 "PNG",
                 0L,
@@ -51,14 +51,14 @@ public class FileServiceTest {
         // setup
         val accountId = UUID.randomUUID();
         byte[] bytes1 = "hello".getBytes();
-        val file1 = new File(
+        val file1 = new VaultFile(
                 "Sample1",
                 "txt",
                 Integer.toUnsignedLong(bytes1.length),
                 new ByteArrayInputStream(bytes1)
         );
         byte[] bytes2 = "bye".getBytes();
-        val file2 = new File(
+        val file2 = new VaultFile(
                 "Sample2",
                 "txt",
                 Integer.toUnsignedLong(bytes2.length),

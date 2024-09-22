@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FileRepository {
-    void save(UUID accountId, File file);
+    void save(UUID accountId, VaultFile vaultFile);
 
-    List<File> findByAccountId(UUID accountId);
+    List<VaultFile> findByAccountId(UUID accountId);
 }

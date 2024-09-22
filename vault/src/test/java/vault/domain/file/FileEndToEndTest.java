@@ -8,12 +8,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import vault.VaultApplication;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.zip.ZipInputStream;
 
@@ -32,7 +35,7 @@ public class FileEndToEndTest {
     private MockMvc mockMvc;
 
     @Test
-    @WithMockUser
+    @WithUserDetails("userTest1")
     void whenCreateFiles_ThenStatus201() throws Exception {
         // setup
         val accountId = UUID.fromString("4b085d51-b364-41b5-a4e2-c25dac3b7a4a");
@@ -48,29 +51,55 @@ public class FileEndToEndTest {
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().string(""));
-
     }
 
     @Test
-    @WithMockUser
+    @WithUserDetails("userTest1")
+    void whenCreateFilesWithInvalidAccountId_ThenStatus403() throws Exception {
+        // setup
+        val accountId = UUID.fromString("6d896416-6ccf-44de-810e-b122da62bd25");
+        val multipartFile1 = new MockMultipartFile(
+                "files", "123",
+                MediaType.TEXT_PLAIN_VALUE,
+                "qwe".getBytes());
+
+        // then
+        val result = mockMvc.perform(
+                        multipart("/account/{accountId}/file", accountId.toString())
+                                .file(multipartFile1)
+                )
+                .andExpect(MockMvcResultMatchers.status().isForbidden())
+                .andReturn();
+
+        assertThat(
+                Objects.requireNonNull(
+                        result.getResolvedException()
+                ).getMessage()
+        ).isEqualTo(
+                String.format("AccountId: %s is not valid.", accountId)
+        );
+    }
+
+    @Test
+    @WithUserDetails("userTest2")
     void whenCreateMultipleFilesAndGetFiles_ThenStatus200() throws Exception {
         // setup
-        val accountId = UUID.fromString("4b085d51-b364-41b5-a4e2-c25dac3b7a4a");
+        val accountId = UUID.fromString("4b085d51-b364-41b5-a4e2-c25dac3b7a4b");
         val multipartFile1 = new MockMultipartFile(
                 "files", "file1",
                 MediaType.TEXT_PLAIN_VALUE,
-                "qwe".getBytes());
+                "qwe1".getBytes());
 
         val multipartFile2 = new MockMultipartFile(
                 "files", "file2",
                 MediaType.TEXT_PLAIN_VALUE,
-                "qwe".getBytes());
+                "qwe2".getBytes());
 
         val multipartFile3 = new MockMultipartFile(
                 "files", "file3",
                 MediaType.TEXT_PLAIN_VALUE,
-                "qwe".getBytes());
-        // then
+                "qwe3".getBytes());
+
         mockMvc.perform(
                         multipart("/account/{accountId}/file", accountId.toString())
                                 .file(multipartFile1)
@@ -88,20 +117,34 @@ public class FileEndToEndTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/zip"))
                 .andReturn();
 
-        //unzip
+        // then
+        // unzip
         val bytes = result.getResponse().getContentAsByteArray();
         val zipInput = new ZipInputStream(new ByteArrayInputStream(bytes));
-
+        val byteList = new ArrayList<byte[]>();
         //get first entry
         zipInput.getNextEntry();
-        assertThat(Arrays.toString(zipInput.readAllBytes())).isEqualTo(Arrays.toString(multipartFile1.getBytes()));
-
+        byteList.add(zipInput.readAllBytes());
         //get second entry
         zipInput.getNextEntry();
-        assertThat(Arrays.toString(zipInput.readAllBytes())).isEqualTo(Arrays.toString(multipartFile2.getBytes()));
-
+        byteList.add(zipInput.readAllBytes());
         //get third entry
         zipInput.getNextEntry();
-        assertThat(Arrays.toString(zipInput.readAllBytes())).isEqualTo(Arrays.toString(multipartFile3.getBytes()));
+        byteList.add(zipInput.readAllBytes());
+
+        val file1Bytes = multipartFile1.getBytes();
+        val file2Bytes = multipartFile2.getBytes();
+        val file3Bytes = multipartFile3.getBytes();
+        val countMatches = byteList
+                .stream()
+                .filter(
+                        (r) ->
+                                Arrays.equals(r, file1Bytes)
+                                        || Arrays.equals(r, file2Bytes)
+                                        || Arrays.equals(r, file3Bytes)
+                )
+                .count();
+
+        assertThat(countMatches).isEqualTo(3);
     }
 }

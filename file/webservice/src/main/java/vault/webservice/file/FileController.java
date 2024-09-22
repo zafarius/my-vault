@@ -7,9 +7,11 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import vault.domain.file.File;
+import vault.domain.common.SecurityRoles;
+import vault.domain.file.VaultFile;
 import vault.domain.file.FileService;
 import vault.webservice.contracts.file.FilesApi;
 import java.io.IOException;
@@ -17,15 +19,16 @@ import java.util.List;
 import java.util.UUID;
 import lombok.val;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class FileController implements FilesApi {
     private final FileService fileService;
 
     @Override
+    @Secured(SecurityRoles.USER)
     public ResponseEntity<Resource> getFiles(final UUID accountId) {
-
         val resource = new ByteArrayResource(fileService.getZippedContent(accountId));
+
         return ResponseEntity.ok()
                 .contentLength(resource.contentLength())
                 .header(HttpHeaders.CONTENT_DISPOSITION,
@@ -36,10 +39,11 @@ public class FileController implements FilesApi {
     }
 
     @Override
+    @Secured(SecurityRoles.USER)
     public ResponseEntity<Void> uploadFiles(final UUID accountId, final List<MultipartFile> files) {
         files.parallelStream().map((multipartFile) -> {
             try {
-                return new File(
+                return new VaultFile(
                         multipartFile.getOriginalFilename(),
                         multipartFile.getContentType(),
                         multipartFile.getSize(),

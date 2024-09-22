@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import vault.VaultApplication;
 import vault.account.model.RequestAccountDTO;
+import vault.domain.common.SecurityRoles;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -48,7 +49,7 @@ public class AccountEndToEndTest {
     }
 
     @Test
-    @WithMockUser(username = "user123", password = "password123")
+    @WithMockUser(username = "user123", password = "password123", authorities = SecurityRoles.USER)
     public void whenGetAccount_thenStatus200() throws Exception {
         // setup
         val username = "user123";

@@ -9,6 +9,8 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":common:domain"))
+
     implementation(libs.spring.boot.starter.security)
     implementation(libs.spring.session.jdbc)
     implementation(libs.spring.boot.starter.web)
