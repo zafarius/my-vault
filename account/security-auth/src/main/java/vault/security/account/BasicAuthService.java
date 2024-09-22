@@ -31,6 +31,7 @@ public class BasicAuthService implements UserDetailsService {
         return account.map(account1 ->
                 VaultUser
                         .builder()
+                        .accountId(account1.getId())
                         .username(account1.getUsername())
                         .password(account1.getPassword())
                         .authorities(

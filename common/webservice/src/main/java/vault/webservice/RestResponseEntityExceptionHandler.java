@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import vault.domain.common.EntityAlreadyExistsException;
+import vault.domain.common.ForbiddenException;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -20,6 +21,19 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 ex.getMessage(),
                 new HttpHeaders(),
                 HttpStatus.CONFLICT,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = {ForbiddenException.class})
+    protected ResponseEntity<Object> handleConflict(
+            final ForbiddenException ex,
+            final WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                ex.getMessage(),
+                new HttpHeaders(),
+                HttpStatus.FORBIDDEN,
                 request
         );
     }

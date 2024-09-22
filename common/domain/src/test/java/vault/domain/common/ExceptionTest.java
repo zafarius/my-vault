@@ -10,8 +10,19 @@ public class ExceptionTest {
         assertThatThrownBy(() -> {
             throw new EntityAlreadyExistsException("Test Exception.", ExceptionTest.class);
         })
-                .isInstanceOf(EntityAlreadyExistsException.class)
-                .message()
-                .isEqualTo("Test Exception. Class: " + ExceptionTest.class.getName());
+        .isInstanceOf(EntityAlreadyExistsException.class)
+        .message()
+        .isEqualTo("Test Exception. Class: " + ExceptionTest.class.getName());
+    }
+
+    @Test
+    public void testForbidden() {
+
+        assertThatThrownBy(() -> {
+            throw new ForbiddenException("Forbidden Exception");
+        })
+        .isInstanceOf(ForbiddenException.class)
+        .message()
+        .isEqualTo("Forbidden Exception");
     }
 }

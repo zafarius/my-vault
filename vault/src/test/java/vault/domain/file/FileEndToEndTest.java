@@ -12,9 +12,11 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import vault.VaultApplication;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.zip.ZipInputStream;
 
@@ -49,7 +51,33 @@ public class FileEndToEndTest {
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().string(""));
+    }
 
+    @Test
+    @WithUserDetails("userTest1")
+    void whenCreateFilesWithInvalidAccountId_ThenStatus403() throws Exception {
+        // setup
+        val accountId = UUID.fromString("6d896416-6ccf-44de-810e-b122da62bd25");
+        val multipartFile1 = new MockMultipartFile(
+                "files", "123",
+                MediaType.TEXT_PLAIN_VALUE,
+                "qwe".getBytes());
+
+        // then
+        val result = mockMvc.perform(
+                        multipart("/account/{accountId}/file", accountId.toString())
+                                .file(multipartFile1)
+                )
+                .andExpect(MockMvcResultMatchers.status().isForbidden())
+                .andReturn();
+
+        assertThat(
+                Objects.requireNonNull(
+                        result.getResolvedException()
+                ).getMessage()
+        ).isEqualTo(
+                String.format("AccountId: %s is not valid.", accountId)
+        );
     }
 
     @Test
@@ -112,8 +140,8 @@ public class FileEndToEndTest {
                 .filter(
                         (r) ->
                                 Arrays.equals(r, file1Bytes)
-                                || Arrays.equals(r, file2Bytes)
-                                || Arrays.equals(r, file3Bytes)
+                                        || Arrays.equals(r, file2Bytes)
+                                        || Arrays.equals(r, file3Bytes)
                 )
                 .count();
 
