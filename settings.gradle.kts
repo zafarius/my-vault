@@ -16,6 +16,7 @@ include(
 
     //common
     "common:security",
+    "common:security-test",
     "common:webservice",
     "common:repository-data-model",
     "common:domain",

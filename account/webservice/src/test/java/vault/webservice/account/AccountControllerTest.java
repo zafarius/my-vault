@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -21,6 +20,8 @@ import vault.account.model.RequestAccountDTO;
 import lombok.val;
 import vault.domain.common.SecurityRoles;
 import vault.domain.roles.Roles;
+import vault.security.WithMockVaultUser;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,15 +72,16 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user1", authorities = SecurityRoles.USER)
+    @WithMockVaultUser(accountId = "bab1406f-798f-495d-b2f6-d7c25597bfae", username = "user1")
     void whenGetAccountExists_ThenStatus200() throws Exception {
         // setup
         val username = "user1";
         val password = "passwordSuper";
         val account = new Account(username, password);
+        val accountId = UUID.fromString("bab1406f-798f-495d-b2f6-d7c25597bfae");
         account.getAccountRoles().add(new Roles(SecurityRoles.USER));
 
-        account.setId(UUID.randomUUID());
+        account.setId(accountId);
         val responseAccountDTO = new vault.account.model.ResponseAccountDTO(account.getId(), account.getUsername());
 
         // when
