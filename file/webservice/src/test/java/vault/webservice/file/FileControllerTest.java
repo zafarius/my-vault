@@ -11,13 +11,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import vault.domain.common.SecurityRoles;
 import vault.domain.file.FileService;
 import lombok.val;
+import vault.security.WithMockVaultUser;
 
 import java.util.UUID;
 
@@ -41,10 +40,10 @@ public class FileControllerTest {
     private FileService fileService;
 
     @Test
-    @WithMockUser(authorities = SecurityRoles.USER)
+    @WithMockVaultUser(accountId = "bab1406f-798f-495d-b2f6-d7c25597bfae")
     void whenCreateFiles_ThenStatus201() throws Exception {
         // setup
-        val accountId = UUID.randomUUID();
+        val accountId = UUID.fromString("bab1406f-798f-495d-b2f6-d7c25597bfae");
         val multipartFile1 = new MockMultipartFile(
                 "files",
                 "123",
@@ -65,11 +64,11 @@ public class FileControllerTest {
     }
 
     @Test
-    @WithMockUser(authorities = SecurityRoles.USER)
+    @WithMockVaultUser(accountId = "bab1406f-798f-495d-b2f6-d7c25597bfae")
     void whenGetFiles_ThenStatus200() throws Exception {
         // setup
         val response = "Hallo".getBytes();
-        val accountId = UUID.randomUUID();
+        val accountId = UUID.fromString("bab1406f-798f-495d-b2f6-d7c25597bfae");
 
         // when
         when(fileService.getZippedContent(accountId)).thenReturn(response);

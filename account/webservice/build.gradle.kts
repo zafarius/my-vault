@@ -26,6 +26,7 @@ dependencies {
     annotationProcessor(libs.mapstruct.processor)
     compileOnly(libs.jakarta.servlet.api)
 
+    testImplementation(project(":common:security-test"))
     testImplementation(libs.spring.security.test)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.spring.boot.starter.test)

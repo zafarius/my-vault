@@ -22,16 +22,12 @@ public class AccountInterceptor implements HandlerInterceptor {
     private String extractAccountId(final String requestURI) {
         return requestURI
                 .substring("account//".length())
-                .substring(0, 36);
+                .substring(0, 36); //length of UUID
     }
 
     private void verify(final String accountId) {
         val authentication = SecurityContextHolder.getContext().getAuthentication();
-        // for test purposes, when using @WithMockUser
-        if (!(authentication.getPrincipal() instanceof VaultUser vaultUser)) {
-            return;
-        }
-
+        val vaultUser = (VaultUser) authentication.getPrincipal();
         val vaultUserId = vaultUser.getAccountId().toString();
         if (!accountId.equals(vaultUserId)) {
             throw new ForbiddenException(
