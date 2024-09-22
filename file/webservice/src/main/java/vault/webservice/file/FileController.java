@@ -11,7 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import vault.domain.common.SecurityRoles;
-import vault.domain.file.File;
+import vault.domain.file.VaultFile;
 import vault.domain.file.FileService;
 import vault.webservice.contracts.file.FilesApi;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class FileController implements FilesApi {
     public ResponseEntity<Void> uploadFiles(final UUID accountId, final List<MultipartFile> files) {
         files.parallelStream().map((multipartFile) -> {
             try {
-                return new File(
+                return new VaultFile(
                         multipartFile.getOriginalFilename(),
                         multipartFile.getContentType(),
                         multipartFile.getSize(),

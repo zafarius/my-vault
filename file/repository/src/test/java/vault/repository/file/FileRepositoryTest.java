@@ -9,9 +9,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
-import vault.domain.file.File;
 import vault.domain.file.FileRepository;
 import lombok.val;
+import vault.domain.file.VaultFile;
 import vault.repository.DataRepositoryConfiguration;
 import java.io.FileInputStream;
 import java.nio.file.Files;
@@ -52,7 +52,7 @@ public class FileRepositoryTest {
 
         // when
         try (val contentStream = new FileInputStream(testFile)) {
-            val file = new File(
+            val file = new VaultFile(
                     fileName,
                     fileType,
                     testFileSize,

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.InputStream;
 
 @Data
-public class File {
+public class VaultFile {
     private final String name;
     private final String type;
     private final Long size;

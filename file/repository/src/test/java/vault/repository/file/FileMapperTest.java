@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import lombok.val;
-import vault.domain.file.File;
+import vault.domain.file.VaultFile;
 
 import java.io.FileInputStream;
 
@@ -22,7 +22,7 @@ public class FileMapperTest {
     @Test
     public void testMapFileToFileEntity() {
         // setup
-        val file = new File(
+        val file = new VaultFile(
                 "Sample",
                 "PNG",
                 0L,

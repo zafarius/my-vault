@@ -19,8 +19,8 @@ public class FileServiceImpl implements FileService {
     private final FileRepository fileRepository;
 
     @Override
-    public void uploadFile(final UUID accountId, final File file) {
-       fileRepository.save(accountId, file);
+    public void uploadFile(final UUID accountId, final VaultFile vaultFile) {
+       fileRepository.save(accountId, vaultFile);
     }
 
     @Override
@@ -28,10 +28,10 @@ public class FileServiceImpl implements FileService {
         return zip(fileRepository.findByAccountId(accountId));
     }
 
-    private byte[] zip(final List<File> files) {
+    private byte[] zip(final List<VaultFile> vaultFiles) {
         val byteArrayOutputStream = new ByteArrayOutputStream();
         try (val zipStream = new ZipOutputStream(byteArrayOutputStream)) {
-            files.forEach((file -> {
+            vaultFiles.forEach((file -> {
                 try {
                     zipStream.putNextEntry(new ZipEntry(file.getName()));
                     IOUtils.copy(file.getContentStream(), zipStream);

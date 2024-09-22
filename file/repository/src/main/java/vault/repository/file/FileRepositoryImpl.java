@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
-import vault.domain.file.File;
+import vault.domain.file.VaultFile;
 import vault.domain.file.FileRepository;
 
 import java.io.FileInputStream;
@@ -32,17 +32,17 @@ public class FileRepositoryImpl implements FileRepository {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public void save(final UUID accountId, final File file) {
-        val fileDest = saveAsFile(accountId, file.getContentStream(), file.getName());
+    public void save(final UUID accountId, final VaultFile vaultFile) {
+        val fileDest = saveAsFile(accountId, vaultFile.getContentStream(), vaultFile.getName());
 
-        val fileEntity = fileMapper.map(file);
+        val fileEntity = fileMapper.map(vaultFile);
         fileEntity.setAccountId(accountId);
         fileEntity.setPath(fileDest);
         fileRepositoryJpa.save(fileEntity);
     }
 
     @Override
-    public List<File> findByAccountId(final UUID accountId) {
+    public List<VaultFile> findByAccountId(final UUID accountId) {
         return fileRepositoryJpa.
                 findByAccountId(accountId)
                 .stream()
@@ -68,21 +68,21 @@ public class FileRepositoryImpl implements FileRepository {
         return outputFileName;
     }
 
-    private File toFile(final FileEntity fileEntity) {
-        File file;
+    private VaultFile toFile(final VaultFileEntity vaultFileEntity) {
+        VaultFile vaultFile;
 
         try {
-            val contentStream = new FileInputStream(ResourceUtils.getFile(fileEntity.getPath()));
-            file = new File(
-                    fileEntity.getName(),
-                    fileEntity.getType(),
-                    fileEntity.getSize(),
+            val contentStream = new FileInputStream(ResourceUtils.getFile(vaultFileEntity.getPath()));
+            vaultFile = new VaultFile(
+                    vaultFileEntity.getName(),
+                    vaultFileEntity.getType(),
+                    vaultFileEntity.getSize(),
                     contentStream
             );
         } catch (IOException ioException) {
             throw new RuntimeException(ioException);
         }
 
-        return file;
+        return vaultFile;
     }
 }

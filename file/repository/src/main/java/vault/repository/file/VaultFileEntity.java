@@ -22,7 +22,7 @@ import java.util.UUID;
         schema = "vault",
         name = "file"
 )
-public class FileEntity {
+public class VaultFileEntity {
     @NotNull
     @Id
     @Column(nullable = false, updatable = false)

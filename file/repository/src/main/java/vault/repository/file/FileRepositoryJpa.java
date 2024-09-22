@@ -8,6 +8,6 @@ import java.util.UUID;
 
 
 @Repository
-public interface FileRepositoryJpa extends CrudRepository<FileEntity, String> {
-    List<FileEntity> findByAccountId(UUID accountId);
+public interface FileRepositoryJpa extends CrudRepository<VaultFileEntity, String> {
+    List<VaultFileEntity> findByAccountId(UUID accountId);
 }

@@ -3,8 +3,7 @@ package vault.domain.file;
 import java.util.UUID;
 
 public interface FileService {
-    void uploadFile(UUID accountId, File file);
-    byte[] getZippedContent(UUID accountId);
+    void uploadFile(UUID accountId, VaultFile vaultFile);
 
-    //Account createAccount(Account account);
+    byte[] getZippedContent(UUID accountId);
 }
