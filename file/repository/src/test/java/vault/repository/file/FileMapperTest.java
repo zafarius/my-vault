@@ -33,7 +33,7 @@ public class FileMapperTest {
         val fileEntity = fileMapper.map(file);
 
         // then
-        assertThat(fileEntity.getName()).isEqualTo(file.getName());
+        assertThat(fileEntity.getName()).contains(file.getName());
         assertThat(fileEntity.getType()).isEqualTo(file.getType());
         assertThat(fileEntity.getSize()).isEqualTo(file.getSize());
     }

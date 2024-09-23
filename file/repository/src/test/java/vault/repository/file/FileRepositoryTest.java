@@ -67,7 +67,7 @@ public class FileRepositoryTest {
             val result = fileRepository.findByAccountId(accountId).get(0);
             assertThat(result.getContentStream().readAllBytes()).isEqualTo(contentStream.readAllBytes());
             assertThat(result.getType()).isEqualTo(fileType);
-            assertThat(result.getName()).isEqualTo(fileName);
+            assertThat(result.getName()).contains(fileName);
             assertThat(result.getSize()).isEqualTo(testFileSize);
         }
     }

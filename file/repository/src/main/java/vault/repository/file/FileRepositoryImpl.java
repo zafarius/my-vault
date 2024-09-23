@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,10 +50,9 @@ public class FileRepositoryImpl implements FileRepository {
 
     private String saveAsFile(final UUID accountId, final InputStream fileContent, final String fileName) {
         val userDir = filesDir + "/" + accountId;
-        val outputFileName = String.format("%s/%s+%s",
+        val outputFileName = String.format("%s/%s",
                 userDir,
-                fileName,
-                ZonedDateTime.now().format(DateTimeFormatter.ISO_INSTANT)
+                fileName
         );
 
         try {
