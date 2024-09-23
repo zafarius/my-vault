@@ -86,7 +86,7 @@ public class AccountControllerTest {
 
         // when
         when(accountControllerMapper.map(account)).thenReturn(responseAccountDTO);
-        when(accountService.findByUsername(account.getUsername())).thenReturn(Optional.of(account));
+        when(accountService.findByUsernameIgnoreCase(account.getUsername())).thenReturn(Optional.of(account));
 
         // then
         mockMvc.perform(

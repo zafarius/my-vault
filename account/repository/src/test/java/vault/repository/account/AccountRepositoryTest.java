@@ -52,7 +52,7 @@ public class AccountRepositoryTest {
         val role2 = new Roles(SecurityRoles.ADMIN);
         val password = "superSecurePassword";
         val passwordEncoded = "$2a$12$nSwMArKJZY.rnTLdYQS00OABLwN6u6wefqbP6W1jHP0RlSrTn9lBS";
-        val account = new Account("User1", password);
+        val account = new Account("user1", password);
         account.getAccountRoles().add(role1);
         account.getAccountRoles().add(role2);
 
@@ -63,7 +63,7 @@ public class AccountRepositoryTest {
         entityManager.flush();
 
         // then
-        val createdAccount = accountRepository.findByUsername(account.getUsername());
+        val createdAccount = accountRepository.findByUsernameIgnoreCase(account.getUsername());
         assertThat(createdAccount.isPresent()).isTrue();
         assertThat(createdAccount.get().getAccountRoles()).isEqualTo(account.getAccountRoles());
         assertThat(createdAccount.get().getAccountRoles()).isEqualTo(account.getAccountRoles());
@@ -80,7 +80,7 @@ public class AccountRepositoryTest {
         val account1 = new Account("UserA", password);
         account1.getAccountRoles().add(role1);
         account1.getAccountRoles().add(role2);
-        val account2 = new Account("UserA", password);
+        val account2 = new Account("userA", password);
         account2.getAccountRoles().add(role1);
 
 
@@ -100,6 +100,6 @@ public class AccountRepositoryTest {
 
     @Test
     public void testAccountNotFound() {
-        assertThat(accountRepository.findByUsername("IdoNotExist").isPresent()).isFalse();
+        assertThat(accountRepository.findByUsernameIgnoreCase("IdoNotExist").isPresent()).isFalse();
     }
 }

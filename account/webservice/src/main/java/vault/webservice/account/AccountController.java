@@ -30,7 +30,7 @@ public class AccountController implements AccountsApi {
     @Secured(SecurityRoles.USER)
     public ResponseEntity<ResponseAccountDTO> getAccount() {
         val userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        val account = accountService.findByUsername(userDetails.getUsername());
+        val account = accountService.findByUsernameIgnoreCase(userDetails.getUsername());
         return account.map((account1 ->
                         ResponseEntity
                                 .status(HttpStatus.OK)

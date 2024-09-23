@@ -11,7 +11,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import vault.domain.common.SecurityRoles;
-import vault.domain.file.VaultFile;
 import vault.domain.file.FileService;
 import vault.webservice.contracts.file.FilesApi;
 import java.io.IOException;
@@ -23,6 +22,7 @@ import lombok.val;
 @RequiredArgsConstructor
 public class FileController implements FilesApi {
     private final FileService fileService;
+    private final FileControllerMapper fileControllerMapper;
 
     @Override
     @Secured(SecurityRoles.USER)
@@ -43,16 +43,13 @@ public class FileController implements FilesApi {
     public ResponseEntity<Void> uploadFiles(final UUID accountId, final List<MultipartFile> files) {
         files.parallelStream().map((multipartFile) -> {
             try {
-                return new VaultFile(
-                        multipartFile.getOriginalFilename(),
-                        multipartFile.getContentType(),
-                        multipartFile.getSize(),
-                        multipartFile.getInputStream()
-                );
+                return fileControllerMapper.map(multipartFile);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }).forEach((file) -> fileService.uploadFile(accountId, file));
+        }).forEach((file) ->
+                fileService.uploadFile(accountId, file)
+        );
 
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }

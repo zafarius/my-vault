@@ -28,8 +28,8 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Account> findByUsername(final String username) {
-        return accountRepositoryJpa.findByUsername(username).map(accountMapper::map);
+    public Optional<Account> findByUsernameIgnoreCase(final String username) {
+        return accountRepositoryJpa.findByUsernameIgnoreCase(username).map(accountMapper::map);
     }
 
     private AccountEntity encodePassword(final AccountEntity accountEntity) {
