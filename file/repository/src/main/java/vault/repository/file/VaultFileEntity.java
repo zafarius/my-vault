@@ -70,4 +70,8 @@ public class VaultFileEntity {
             this.id = UUID.randomUUID();
         }
     }
+
+    public void setName(final String fileName) {
+        this.name = UUID.randomUUID() + "-" +  fileName;
+    }
 }
