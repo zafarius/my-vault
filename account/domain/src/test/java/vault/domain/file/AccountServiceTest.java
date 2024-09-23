@@ -32,14 +32,14 @@ public class AccountServiceTest {
         val account = new Account("username1", "password");
 
         // when
-        when(accountRepository.findByUsername(account.getUsername())).thenReturn(Optional.empty());
+        when(accountRepository.findByUsernameIgnoreCase(account.getUsername())).thenReturn(Optional.empty());
         when(accountRepository.save(account)).thenReturn(account);
 
         val createdAccount = accountService.createAccount(account);
 
         // then
         assertThat(createdAccount).isEqualTo(account);
-        verify(accountRepository).findByUsername(account.getUsername());
+        verify(accountRepository).findByUsernameIgnoreCase(account.getUsername());
         verify(accountRepository).save(account);
     }
 
@@ -49,7 +49,7 @@ public class AccountServiceTest {
         val account = new Account("username1", "password");
 
         // when
-        when(accountRepository.findByUsername(account.getUsername())).thenReturn(Optional.of(account));
+        when(accountRepository.findByUsernameIgnoreCase(account.getUsername())).thenReturn(Optional.of(account));
 
         // then
         assertThatThrownBy(

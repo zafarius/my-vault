@@ -14,5 +14,5 @@ public interface AccountRepositoryJpa extends CrudRepository<AccountEntity, Stri
      * @param username
      * @return @{@link AccountEntity}
      */
-    Optional<AccountEntity> findByUsername(String username);
+    Optional<AccountEntity> findByUsernameIgnoreCase(String username);
 }

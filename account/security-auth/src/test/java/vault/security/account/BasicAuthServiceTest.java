@@ -36,7 +36,7 @@ public class BasicAuthServiceTest {
         val account = new Account("Userius", "password123");
         account.getAccountRoles().add(role1);
 
-        Mockito.when(accountRepository.findByUsername(username)).thenReturn(Optional.of(account));
+        Mockito.when(accountRepository.findByUsernameIgnoreCase(username)).thenReturn(Optional.of(account));
 
         // when
         val result = basicAuthService.loadUserByUsername(username);
@@ -56,7 +56,7 @@ public class BasicAuthServiceTest {
         // setup
         val username = "sample";
 
-        Mockito.when(accountRepository.findByUsername(username)).thenReturn(Optional.empty());
+        Mockito.when(accountRepository.findByUsernameIgnoreCase(username)).thenReturn(Optional.empty());
 
         // when
         val result = basicAuthService.loadUserByUsername(username);

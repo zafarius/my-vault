@@ -15,14 +15,14 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
 
     @Override
-    public Optional<Account> findByUsername(final String username) {
-        return accountRepository.findByUsername(username);
+    public Optional<Account> findByUsernameIgnoreCase(final String username) {
+        return accountRepository.findByUsernameIgnoreCase(username);
     }
 
     @Override
     public Account createAccount(final Account account) {
 
-        if (findByUsername(account.getUsername()).isPresent()) {
+        if (findByUsernameIgnoreCase(account.getUsername()).isPresent()) {
             throw new EntityAlreadyExistsException(String.format("Account %s already exists.", account.getUsername()), Account.class);
         }
 

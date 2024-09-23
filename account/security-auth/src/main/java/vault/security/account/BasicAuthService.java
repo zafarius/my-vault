@@ -27,7 +27,7 @@ public class BasicAuthService implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        Optional<Account> account = accountRepository.findByUsername(username);
+        Optional<Account> account = accountRepository.findByUsernameIgnoreCase(username);
         return account.map(account1 ->
                 VaultUser
                         .builder()

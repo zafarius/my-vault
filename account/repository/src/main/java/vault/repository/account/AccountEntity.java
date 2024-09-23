@@ -83,4 +83,8 @@ public class AccountEntity {
             this.id = UUID.randomUUID();
         }
     }
+
+    public void setUsername(final String name) {
+        this.username = name.toLowerCase();
+    }
 }
