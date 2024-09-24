@@ -18,8 +18,10 @@ ARG BUILD_VERSION
 
 COPY vault-${BUILD_VERSION}.jar vault.jar
 
+VOLUME /application
+RUN chown appuser:appusers -R  /application
+
 USER appuser
 
-VOLUME /application/data
 
 ENTRYPOINT ["java", "-jar", "vault.jar"]

@@ -31,9 +31,9 @@ public class FileRepositoryImpl implements FileRepository {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public void save(final UUID accountId, final VaultFile vaultFile) {
-        val fileDest = saveAsFile(accountId, vaultFile.getContentStream(), vaultFile.getName());
-
         val fileEntity = fileMapper.map(vaultFile);
+        val fileDest = saveAsFile(accountId, vaultFile.getContentStream(), fileEntity.getName());
+        
         fileEntity.setAccountId(accountId);
         fileEntity.setPath(fileDest);
         fileRepositoryJpa.save(fileEntity);

@@ -4,6 +4,8 @@ server:
 spring:
   session:
     timeout: 10m
+    jdbc:
+      initialize-schema: always
   h2:
     console:
       enabled: false
@@ -43,7 +45,7 @@ spring:
     password: ${JDBC_PASSWORD}
 logging:
   level:
-    vault: WARN
+    vault: ERROR
     com:
       atomikos: ERROR
 files:

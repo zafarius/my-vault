@@ -34,6 +34,8 @@ dependencies {
     implementation(libs.atomikos)
     implementation(libs.spring.web)
     implementation(libs.swagger.annotation)
+    implementation(libs.postgresql)
+    implementation(libs.flyway.postgresql)
 
     testImplementation(libs.spring.security.test)
     testImplementation(libs.junit.jupiter)
