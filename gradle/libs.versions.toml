@@ -4,7 +4,8 @@ spring-web = "6.1.13"
 swagger-annotation = "2.2.22"
 junit-jupiter = "5.11.0"
 h2database= "2.3.230"
-flyway-core = "10.17.0"
+postgresql = "42.7.4"
+flyway = "10.18.0"
 lombok = "1.18.34"
 lombok-plugin = "8.7.1"
 atomikos = "6.0.0"
@@ -29,7 +30,9 @@ openapitools-jackson = { module = "org.openapitools:jackson-databind-nullable", 
 swagger-annotation = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger-annotation" }
 
 h2-database = { module = "com.h2database:h2", version.ref = "h2database" }
-flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 atomikos = { module = "com.atomikos:transactions-spring-boot3-starter", version.ref = "atomikos"}
 spring-session-jdbc = { module = "org.springframework.session:spring-session-jdbc", version.ref = "spring-session-jdbc"}
