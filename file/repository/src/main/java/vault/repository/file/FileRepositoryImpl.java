@@ -33,7 +33,7 @@ public class FileRepositoryImpl implements FileRepository {
     public void save(final UUID accountId, final VaultFile vaultFile) {
         val fileEntity = fileMapper.map(vaultFile);
         val fileDest = saveAsFile(accountId, vaultFile.getContentStream(), fileEntity.getName());
-        
+
         fileEntity.setAccountId(accountId);
         fileEntity.setPath(fileDest);
         fileRepositoryJpa.save(fileEntity);
