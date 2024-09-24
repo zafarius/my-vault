@@ -13,7 +13,7 @@ RUN export HTTP_PROXY=${PROXY_URL} \
   && addgroup -g 1000 -S appusers \
   && adduser -u 1000 -S appuser -G appusers
 
-WORKDIR application
+WORKDIR /application
 ARG BUILD_VERSION
 
 COPY vault-${BUILD_VERSION}.jar vault.jar

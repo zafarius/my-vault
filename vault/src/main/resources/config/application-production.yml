@@ -8,12 +8,12 @@ spring:
     timeout: 10m
   h2:
     console:
-      enabled: true
+      enabled: false
   jta:
     atomikos:
       datasource:
-        min-pool-size: 5
-        max-pool-size: 20
+        min-pool-size: ${JDBC_CONNECTION_POOL_MIN}
+        max-pool-size: ${JDBC_CONNECTION_POOL_MAX}
       properties:
         enable-logging: false
         log-base-name: VAULT_XA
@@ -21,8 +21,7 @@ spring:
 
     enabled: true
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    #database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
@@ -40,18 +39,14 @@ spring:
       hibernate.order_updates: true
       hibernate.connection.handling_mode: DELAYED_ACQUISITION_AND_RELEASE_AFTER_STATEMENT
   datasource:
-    url: jdbc:h2:mem:vault;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    username: root
-    password: vault
-  #flyway:
-  #  schemas: vault
-  #  create-schemas: true
-  #  fail-on-missing-locations: true
-  #  validate-migration-naming: true
+    url: jdbc:postgresql://${JDBC_HOST}:${JDBC_PORT}/${JDBC_DATABASE}?reWriteBatchedInserts=true
+    driverClassName: org.postgresql.Driver
+    username: ${JDBC_USERNAME}
+    password: ${JDBC_PASSWORD}
 logging:
   level:
+    vault: error
     com:
-      atomikos: DEBUG
+      atomikos: error
 files:
-  output_dir: "/tmp"
+  output_dir: ${FILES_OUTPUT_DIR}
