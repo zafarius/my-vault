@@ -45,8 +45,8 @@ spring:
     password: ${JDBC_PASSWORD}
 logging:
   level:
-    vault: error
+    vault: WARN
     com:
-      atomikos: error
+      atomikos: ERROR
 files:
   output_dir: ${FILES_OUTPUT_DIR}
