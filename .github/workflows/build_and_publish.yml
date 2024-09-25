@@ -10,13 +10,14 @@ jobs:
   gradle_build:
     runs-on: ubuntu-latest
     env:
+      ### ###
       PGPASSWORD: postgres
       SPRING_PROFILES_ACTIVE: production,production-test
       JDBC_HOST: localhost
       JDBC_PORT: 5432
       JDBC_DATABASE: vault
       JDBC_USERNAME: vault-user
-      JDBC_PASSWORD: vaultMaster123
+      JDBC_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
       JDBC_CONNECTION_POOL_MIN: 5
       JDBC_CONNECTION_POOL_MAX: 20
       FILES_OUTPUT_DIR: /tmp/test
@@ -48,7 +49,7 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Debug
+      - name: Inject initdb.sql to create vault database and user
         run: psql -h localhost -p 5432 -U postgres -d postgres -f docker/docker-compose/data/postgres/initdb.sql
 
       - name: Setup Gradle
