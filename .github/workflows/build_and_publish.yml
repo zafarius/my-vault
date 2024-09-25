@@ -9,7 +9,6 @@ env:
 jobs:
   gradle_build:
     runs-on: ubuntu-latest
-    env:
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
