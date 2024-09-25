@@ -22,7 +22,6 @@ spring:
     enabled: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    #database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
@@ -44,11 +43,6 @@ spring:
     driverClassName: org.h2.Driver
     username: root
     password: vault
-  #flyway:
-  #  schemas: vault
-  #  create-schemas: true
-  #  fail-on-missing-locations: true
-  #  validate-migration-naming: true
 logging:
   level:
     com:

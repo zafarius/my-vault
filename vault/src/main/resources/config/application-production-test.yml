@@ -1,0 +1,11 @@
+spring:
+  sql:
+    init:
+      mode: always
+logging:
+  level:
+    vault: DEBUG
+    com:
+      atomikos: DEBUG
+files:
+  output_dir: /tmp
