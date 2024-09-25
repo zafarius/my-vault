@@ -11,6 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PGPASSWORD: postgres
+      SPRING_PROFILES_ACTIVE: production,production-test
+      JDBC_HOST: localhost
+      JDBC_PORT: 5432
+      JDBC_DATABASE: vault
+      JDBC_USERNAME: vault-user
+      JDBC_PASSWORD: vaultMaster123
+      JDBC_CONNECTION_POOL_MIN: 5
+      JDBC_CONNECTION_POOL_MAX: 20
+      FILES_OUTPUT_DIR: /tmp/test
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
