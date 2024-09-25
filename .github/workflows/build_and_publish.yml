@@ -9,6 +9,8 @@ env:
 jobs:
   gradle_build:
     runs-on: ubuntu-latest
+    env:
+      PGPASSWORD: postgres
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
@@ -38,7 +40,7 @@ jobs:
           java-version: 17
 
       - name: Debug
-        run: psql --help
+        run: psql -U postgres -d postgres -f docker/docker-compose/data/postgres/initdb.sql
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
