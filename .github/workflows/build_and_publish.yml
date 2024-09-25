@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ### ###
-      PGPASSWORD: postgres
+      PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       SPRING_PROFILES_ACTIVE: production,production-test
       JDBC_HOST: localhost
       JDBC_PORT: 5432
-      JDBC_DATABASE: vault
-      JDBC_USERNAME: vault-user
+      JDBC_DATABASE: ${{ vars.JDBC_DATABASE }}
+      JDBC_USERNAME: ${{ vars.JDBC_USERNAME }}
       JDBC_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
       JDBC_CONNECTION_POOL_MIN: 5
       JDBC_CONNECTION_POOL_MAX: 20
@@ -29,7 +29,7 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -50,7 +50,7 @@ jobs:
           java-version: 17
 
       - name: Inject initdb.sql to create vault database and user
-        run: psql -h localhost -p 5432 -U postgres -d postgres -f docker/docker-compose/data/postgres/initdb.sql
+        run: psql -h localhost -p 5432 -U ${{ vars.POSTGRES_USER }} -d postgres -f docker/docker-compose/data/postgres/initdb.sql
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
