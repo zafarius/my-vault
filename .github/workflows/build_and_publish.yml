@@ -10,8 +10,7 @@ jobs:
   gradle_build:
     runs-on: ubuntu-latest
     env:
-      ### ###
-      PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      # Envs for spring test setup
       SPRING_PROFILES_ACTIVE: production,production-test
       JDBC_HOST: localhost
       JDBC_PORT: 5432
@@ -21,6 +20,7 @@ jobs:
       JDBC_CONNECTION_POOL_MIN: 5
       JDBC_CONNECTION_POOL_MAX: 20
       FILES_OUTPUT_DIR: /tmp/test
+      PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
