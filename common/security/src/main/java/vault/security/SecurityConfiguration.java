@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
-                        .requestMatchers(HttpMethod.POST, "/account").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/account").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults());

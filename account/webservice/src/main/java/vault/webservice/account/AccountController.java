@@ -7,6 +7,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import vault.account.model.RequestAccountDTO;
 import vault.account.model.ResponseAccountDTO;
 import vault.domain.account.AccountService;
@@ -16,6 +17,7 @@ import lombok.val;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 public class AccountController implements AccountsApi {
     private final AccountService accountService;
     private final AccountControllerMapper accountControllerMapper;

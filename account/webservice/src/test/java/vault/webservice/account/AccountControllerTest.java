@@ -62,7 +62,7 @@ public class AccountControllerTest {
 
         // then
         mockMvc.perform(
-                        post("/account")
+                        post("/api/v1/account")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(requestAccountDTO))
                 )
@@ -90,7 +90,7 @@ public class AccountControllerTest {
 
         // then
         mockMvc.perform(
-                        get("/account")
+                        get("/api/v1/account")
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(account.getId().toString()))
@@ -114,7 +114,7 @@ public class AccountControllerTest {
 
         // then
         mockMvc.perform(
-                        post("/account")
+                        post("/api/v1/account")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(requestAccountDTO))
                 )
@@ -139,7 +139,7 @@ public class AccountControllerTest {
 
         // then
         mockMvc.perform(
-                        post("/account")
+                        post("/api/v1/account")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(requestAccountDTO))
                 )

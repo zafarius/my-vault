@@ -54,7 +54,7 @@ public class AccountInterceptorTest {
         val mockRequest = new MockHttpServletRequest();
         val mockResponse = new MockHttpServletResponse();
         mockRequest.setRequestURI(
-                String.format("/account/%s/file", accountId)
+                String.format("/api/v5/account/%s/file", accountId)
                 );
 
         // then
