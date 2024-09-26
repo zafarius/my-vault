@@ -53,7 +53,7 @@ public class FileControllerTest {
 
         // then
         mockMvc.perform(
-                multipart("/account/{accountId}/file", accountId.toString())
+                multipart("/api/v1/account/{accountId}/file", accountId.toString())
                         .file(multipartFile1)
         )
         .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -75,7 +75,7 @@ public class FileControllerTest {
 
         // then
         mockMvc.perform(
-                        get("/account/{accountId}/file", accountId.toString())
+                        get("/api/v1/account/{accountId}/file", accountId.toString())
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().bytes(response))

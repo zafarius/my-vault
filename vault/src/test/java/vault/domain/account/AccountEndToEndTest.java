@@ -39,7 +39,7 @@ public class AccountEndToEndTest {
 
         // then
         mockMvc.perform(
-                        post("/account")
+                        post("/api/v1/account")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(requestAccountDTO))
                 )
@@ -58,7 +58,7 @@ public class AccountEndToEndTest {
 
         // then
         mockMvc.perform(
-                        post("/account")
+                        post("/api/v1/account")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(requestAccountDTO))
                 )
@@ -67,7 +67,7 @@ public class AccountEndToEndTest {
                 );
 
         mockMvc.perform(
-                        get("/account")
+                        get("/api/v1/account")
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
@@ -83,7 +83,7 @@ public class AccountEndToEndTest {
 
         // then
         mockMvc.perform(
-                        post("/account")
+                        post("/api/v1/account")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(requestAccountDTO1))
                 )
@@ -92,7 +92,7 @@ public class AccountEndToEndTest {
                 );
 
         mockMvc.perform(
-                        post("/account")
+                        post("/api/v1/account")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(requestAccountDTO2))
                 )

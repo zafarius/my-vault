@@ -46,7 +46,7 @@ public class FileEndToEndTest {
 
         // then
         mockMvc.perform(
-                        multipart("/account/{accountId}/file", accountId.toString())
+                        multipart("/api/v1/account/{accountId}/file", accountId.toString())
                                 .file(multipartFile1)
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -65,7 +65,7 @@ public class FileEndToEndTest {
 
         // then
         val result = mockMvc.perform(
-                        multipart("/account/{accountId}/file", accountId.toString())
+                        multipart("/api/v1/account/{accountId}/file", accountId.toString())
                                 .file(multipartFile1)
                 )
                 .andExpect(MockMvcResultMatchers.status().isForbidden())
@@ -101,7 +101,7 @@ public class FileEndToEndTest {
                 "qwe3".getBytes());
 
         mockMvc.perform(
-                        multipart("/account/{accountId}/file", accountId.toString())
+                        multipart("/api/v1/account/{accountId}/file", accountId.toString())
                                 .file(multipartFile1)
                                 .file(multipartFile2)
                                 .file(multipartFile3)
@@ -110,7 +110,7 @@ public class FileEndToEndTest {
                 .andExpect(MockMvcResultMatchers.content().string(""));
 
         val result = mockMvc.perform(
-                        get("/account/{accountId}/file", accountId.toString())
+                        get("/api/v1/account/{accountId}/file", accountId.toString())
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.header().string(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"download\""))

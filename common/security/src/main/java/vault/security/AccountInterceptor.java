@@ -20,8 +20,9 @@ public class AccountInterceptor implements HandlerInterceptor {
 
     @SuppressWarnings("MagicNumber")
     private String extractAccountId(final String requestURI) {
+        val context = "account/";
         return requestURI
-                .substring("account//".length())
+                .substring(requestURI.indexOf(context) + context.length())
                 .substring(0, 36); //length of UUID
     }
 

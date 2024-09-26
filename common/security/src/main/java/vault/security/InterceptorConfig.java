@@ -15,6 +15,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(final InterceptorRegistry registry) {
         registry
                 .addInterceptor(accountInterceptor)
-                .addPathPatterns("/account/**/file");
+                .addPathPatterns("/api/**/account/**/file");
     }
 }
