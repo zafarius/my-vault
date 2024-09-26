@@ -1,4 +1,24 @@
 #!/bin/bash
+
+# check if commands exist
+if ! command -v  curl 2>&1> /dev/null
+then
+    echo "curl could not be found"
+    exit 1
+fi
+
+if ! command -v  jq 2>&1> /dev/null
+then
+    echo "jq could not be found"
+    exit 1
+fi
+
+if ! command -v  unzip 2>&1> /dev/null
+then
+    echo "unzip could not be found"
+    exit 1
+fi
+
 # register new account
 curl -v -d '{"username":"testo", "password":"test123123"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/v1/account
 
