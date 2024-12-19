@@ -17,4 +17,8 @@ public interface FileMapper {
 
     @Mapping(target = "contentStream", ignore = true)
     VaultFile map(VaultFileEntity vaultFileEntity);
+
+
+   // PageRequest map(PageRequestDTO pageRequestDTO);
+
 }

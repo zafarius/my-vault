@@ -5,5 +5,5 @@ import java.util.UUID;
 public interface FileService {
     void uploadFile(UUID accountId, VaultFile vaultFile);
 
-    byte[] getZippedContent(UUID accountId);
+    VaultResponseDTO getZippedContent(UUID accountId, VaultRequestDTO vaultRequestDTO);
 }

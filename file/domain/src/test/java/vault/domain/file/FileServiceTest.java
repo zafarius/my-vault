@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import vault.domain.common.EntityMissingException;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.zip.ZipInputStream;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
@@ -47,7 +50,7 @@ public class FileServiceTest {
     }
 
     @Test
-    public void testGetFiles() throws IOException {
+    public void testGetFilesPaged() throws IOException {
         // setup
         val accountId = UUID.randomUUID();
         byte[] bytes1 = "hello".getBytes();
@@ -65,11 +68,23 @@ public class FileServiceTest {
                 new ByteArrayInputStream(bytes2)
         );
 
-        // when
-        when(fileRepository.findByAccountId(accountId)).thenReturn(List.of(file1, file2));
+        val page = new VaultRequestDTO(
+                1,
+                2,
+                VaultRequestDTO.Sort.CREATED_DATE
+        );
 
-        val bytes = fileService.getZippedContent(accountId);
-        val zipInput = new ZipInputStream(new ByteArrayInputStream(bytes));
+        // when
+        when(fileRepository.findByAccountId(accountId, page)).thenReturn(
+                new VaultResponseDTO(
+                        1,
+                        2,
+                        List.of(file1, file2)
+                )
+        );
+
+        val pageVaultFile = fileService.getZippedContent(accountId, page);
+        val zipInput = new ZipInputStream(new ByteArrayInputStream(pageVaultFile.getContent()));
 
         // then
         //get first entry
@@ -79,6 +94,34 @@ public class FileServiceTest {
         //get second entry
         zipInput.getNextEntry();
         assertThat(Arrays.toString(zipInput.readAllBytes())).isEqualTo(Arrays.toString(bytes2));
-        verify(fileRepository).findByAccountId(accountId);
+        verify(fileRepository).findByAccountId(accountId, page);
+    }
+
+
+    @Test
+    public void testGetFilesNoResult_throwsException() {
+        // setup
+        val accountId = UUID.randomUUID();
+        val vaultRequestDTO = new VaultRequestDTO(
+                2,
+                3,
+                VaultRequestDTO.Sort.CREATED_DATE
+        );
+
+        // when
+        when(fileRepository.findByAccountId(accountId, vaultRequestDTO)).thenReturn(
+                new VaultResponseDTO(
+                        0,
+                        0,
+                        List.of()
+                )
+        );
+
+        // then
+        assertThrows(
+                EntityMissingException.class,
+                () -> fileService.getZippedContent(accountId, vaultRequestDTO)
+        );
+
     }
 }

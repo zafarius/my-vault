@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import lombok.val;
+import vault.domain.common.EntityMissingException;
 
 @RequiredArgsConstructor
 @Service
@@ -24,8 +25,21 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public byte[] getZippedContent(final UUID accountId) {
-        return zip(fileRepository.findByAccountId(accountId));
+    public VaultResponseDTO getZippedContent(final UUID accountId, final VaultRequestDTO vaultRequestDTO) {
+        val pageVaultFile = fileRepository.findByAccountId(accountId, vaultRequestDTO);
+
+        if (pageVaultFile.getContentSize() == 0) {
+            throw new EntityMissingException(
+                    String.format("Elements not found for search. PageNumber: %s, PageSize: %s, Sort: %s",
+                            vaultRequestDTO.getPageNumber(),
+                            vaultRequestDTO.getPageSize(),
+                            vaultRequestDTO.getSortBy().getValue()
+                    )
+            );
+        }
+
+        pageVaultFile.setContent(zip(pageVaultFile.getVaultFiles()));
+        return pageVaultFile;
     }
 
     private byte[] zip(final List<VaultFile> vaultFiles) {
