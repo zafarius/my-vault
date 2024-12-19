@@ -14,7 +14,7 @@ services:
     environment:
       POSTGRES_PASSWORD: "change-me"
   vault:
-    image: ghcr.io/zafarius/vault:0.1.0-snapshot
+    image: ghcr.io/zafarius/vault:0.1.0
     volumes:
       - data:/application/data:rw
     pull_policy: missing
