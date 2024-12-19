@@ -8,10 +8,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import vault.domain.common.EntityAlreadyExistsException;
+import vault.domain.common.EntityMissingException;
 import vault.domain.common.ForbiddenException;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(value = {EntityMissingException.class})
+    protected ResponseEntity<Object> handleConflict(
+            final EntityMissingException ex,
+            final WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                ex.getMessage(),
+                new HttpHeaders(),
+                HttpStatus.NOT_FOUND,
+                request
+        );
+    }
+
     @ExceptionHandler(value = {EntityAlreadyExistsException.class})
     protected ResponseEntity<Object> handleConflict(
             final EntityAlreadyExistsException ex,

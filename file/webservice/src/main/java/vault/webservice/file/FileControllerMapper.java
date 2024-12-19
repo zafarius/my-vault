@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.springframework.web.multipart.MultipartFile;
 import vault.domain.file.VaultFile;
+import vault.domain.file.VaultRequestDTO;
 
 import java.io.IOException;
 
@@ -15,4 +16,6 @@ public interface FileControllerMapper {
     @Mapping(target = "size", source = "size")
     @Mapping(target = "contentStream", source = "inputStream")
     VaultFile map(MultipartFile multipartFile) throws IOException;
+
+    VaultRequestDTO map(vault.file.model.SearchRequestDTO searchRequestDTO);
 }

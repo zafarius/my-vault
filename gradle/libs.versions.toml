@@ -1,6 +1,7 @@
 [versions]
 spring-boot = "3.3.3"
 spring-web = "6.1.13"
+spring-data = "3.4.1"
 swagger-annotation = "2.2.22"
 junit-jupiter = "5.11.0"
 h2database= "2.3.230"
@@ -22,6 +23,7 @@ mapstruct = "1.6.0"
 
 [libraries]
 spring-web = { module = "org.springframework:spring-web", version.ref = "spring-web" }
+spring-data-common = { module = "org.springframework.data:spring-data-commons", version.ref = "spring-data" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }

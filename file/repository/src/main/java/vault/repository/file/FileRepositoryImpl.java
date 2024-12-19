@@ -3,11 +3,15 @@ package vault.repository.file;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
+import vault.domain.file.VaultRequestDTO;
+import vault.domain.file.VaultResponseDTO;
 import vault.domain.file.VaultFile;
 import vault.domain.file.FileRepository;
 
@@ -23,6 +27,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileRepositoryImpl implements FileRepository {
     private final FileRepositoryJpa fileRepositoryJpa;
+    private final PaginationFileRepositoryJpa paginationFileRepositoryJpa;
+
     private final FileMapper fileMapper;
 
     @Value("${files.output_dir}")
@@ -46,6 +52,29 @@ public class FileRepositoryImpl implements FileRepository {
                 .stream()
                 .map(this::toFile)
                 .toList();
+    }
+
+    @Override
+    public VaultResponseDTO findByAccountId(final UUID accountId, final VaultRequestDTO vaultRequestDTO) {
+        val pageable = PageRequest.of(
+                vaultRequestDTO.getPageNumber(),
+                vaultRequestDTO.getPageSize(),
+                Sort.by(vaultRequestDTO.getSortBy().getValue()).ascending()
+        );
+
+        val page = paginationFileRepositoryJpa.findByAccountId(
+                accountId,
+                pageable
+        );
+        val content = page.stream()
+                .map(this::toFile)
+                .toList();
+
+        return new VaultResponseDTO(
+                page.getTotalPages(),
+                page.getNumberOfElements(),
+                content
+        );
     }
 
     private String saveAsFile(final UUID accountId, final InputStream fileContent, final String fileName) {

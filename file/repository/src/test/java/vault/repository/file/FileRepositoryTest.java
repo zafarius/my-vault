@@ -11,6 +11,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.ResourceUtils;
 import vault.domain.file.FileRepository;
 import lombok.val;
+import vault.domain.file.VaultRequestDTO;
 import vault.domain.file.VaultFile;
 import vault.repository.DataRepositoryConfiguration;
 import java.io.FileInputStream;
@@ -40,6 +41,57 @@ public class FileRepositoryTest {
 
     @Autowired
     private FileRepository fileRepository;
+
+    @Test
+    public void testFindByPagination() throws Exception {
+        // setup
+        val accountId = UUID.fromString("4b085d51-b364-41b5-a4e2-c25dac3b7a4a");
+        val fileName1 = UUID.randomUUID().toString();
+        val fileName2 = UUID.randomUUID().toString();
+        val fileType = "PNG";
+        val testFile = ResourceUtils.getFile("classpath:sample.txt");
+        val testFileSize = Files.size(testFile.toPath());
+
+        // when
+        try (val contentStream = new FileInputStream(testFile)) {
+            val file1 = new VaultFile(
+                    fileName1,
+                    fileType,
+                    testFileSize,
+                    contentStream
+            );
+
+            fileRepository.save(accountId, file1);
+            entityManager.flush();
+        }
+
+        try (val contentStream = new FileInputStream(testFile)) {
+            val file2 = new VaultFile(
+                    fileName2,
+                    fileType,
+                    testFileSize,
+                    contentStream
+            );
+            fileRepository.save(accountId, file2);
+            entityManager.flush();
+        }
+
+        val pageRequestDto = new VaultRequestDTO(
+                2,
+                0,
+                VaultRequestDTO.Sort.CREATED_DATE
+        );
+        val result = fileRepository.findByAccountId(
+                accountId,
+                pageRequestDto
+        );
+
+        // then
+        assertThat(result.getVaultFiles().size()).isEqualTo(2);
+        assertThat(result.getContentSize()).isEqualTo(2);
+        assertThat(result.getTotalPages()).isEqualTo(1);
+        assertThat(result.getVaultFiles().get(0).getName()).contains(fileName1);
+    }
 
     @Test
     public void testSaveAndGetFile() throws Exception {
