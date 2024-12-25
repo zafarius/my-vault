@@ -15,8 +15,6 @@ services:
       POSTGRES_PASSWORD: "change-me"
   vault:
     image: ghcr.io/zafarius/vault:0.2.0-SNAPSHOT
-    volumes:
-      - data:/application/data:rw
     pull_policy: missing
     ports:
       - "8080:8080"
